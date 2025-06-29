@@ -28,7 +28,8 @@ You are an expert resume writer and career coach AI.
 Your task is to generate a **professional one-page resume** in structured **JSON format**, based on the user's raw inputs.
 
 🧠 IMPORTANT INSTRUCTIONS:
-- Be creative, persuasive, and realistic.
+- Write the resume in **${language}**.
+- Use a **${style}** tone and writing vibe (e.g., if 'Creative', be imaginative and vibrant; if 'Minimal', keep it clean and concise).
 - Rewrite basic terms (like "CSS" or "football") into **professional, resume-worthy phrasing**.
 - Use bullet-style summaries and recruiter-attractive language.
 - Fill in missing detail where needed — write like a human expert would.
@@ -95,8 +96,8 @@ ${education.map((e, i) =>
   `${i + 1}. ${e.degree} - ${e.school} (${e.date})`).join('\n')}
 
 Skills: ${skills.join(', ')}
-Style: ${style}
-Language: ${language}
+Selected Writing Style: ${style}
+Target Output Language: ${language}
 ===
 
 ONLY return the final structured JSON resume. Do not explain anything.

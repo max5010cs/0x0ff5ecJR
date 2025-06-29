@@ -9,7 +9,7 @@ function escapeHTML(str) {
     .replace(/'/g, '&#039;');
 }
 
-function generateResumeHTML(resumeJson, photoBuffer = null) {
+function generateResumeHTML(resumeJson, photoBuffer = null, theme = 'blue') {
   const {
     fullName = '',
     jobTitle = '',
@@ -21,6 +21,15 @@ function generateResumeHTML(resumeJson, photoBuffer = null) {
     education = [],
     skills = [],
   } = resumeJson;
+
+  const colorMap = {
+    blue: '#2f3e55',
+    green: '#2e7d32',
+    red: '#b71c1c',
+    mono: '#1e1e1e',
+  };
+
+  const primary = colorMap[theme] || colorMap.blue;
 
   const photoBase64 = photoBuffer
     ? `data:image/jpeg;base64,${photoBuffer.toString('base64')}`
@@ -34,6 +43,10 @@ function generateResumeHTML(resumeJson, photoBuffer = null) {
       <style>
         @page {
           margin: 20mm 15mm;
+        }
+
+        :root {
+          --primary: ${primary};
         }
 
         * { box-sizing: border-box; }
@@ -55,7 +68,7 @@ function generateResumeHTML(resumeJson, photoBuffer = null) {
         }
 
         .header {
-          background-color: #2f3e55;
+          background-color: var(--primary);
           color: white;
           padding: 20px 40px;
           text-align: center;
@@ -109,7 +122,7 @@ function generateResumeHTML(resumeJson, photoBuffer = null) {
           border-bottom: 1px solid #ddd;
           padding-bottom: 4px;
           margin-bottom: 6px;
-          color: #2f3e55;
+          color: var(--primary);
           font-weight: 600;
         }
 
@@ -152,7 +165,7 @@ function generateResumeHTML(resumeJson, photoBuffer = null) {
           top: 5px;
           width: 8px;
           height: 8px;
-          background: #2f3e55;
+          background: var(--primary);
           border-radius: 50%;
         }
 
@@ -270,14 +283,14 @@ function generateResumeHTML(resumeJson, photoBuffer = null) {
   `;
 }
 
-async function generatePDF(resumeJson, photoBuffer = null) {
-  const html = generateResumeHTML(resumeJson, photoBuffer);
+async function generatePDF(resumeJson, photoBuffer = null, theme = 'blue') {
+  const html = generateResumeHTML(resumeJson, photoBuffer, theme);
   const file = { content: html };
 
   const options = {
     format: 'A4',
-    printBackground: true, // ✅ ensure header background color shows
-    margin: { top: '0px', bottom: '0px' }, // overridden by @page
+    printBackground: true,
+    margin: { top: '0px', bottom: '0px' },
   };
 
   const buffer = await pdf.generatePdf(file, options);

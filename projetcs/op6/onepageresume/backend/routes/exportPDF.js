@@ -8,10 +8,11 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 router.post('/', upload.single('photo'), async (req, res) => {
   try {
-    const json = JSON.parse(req.body.resumeData || '{}'); // FIXED field name
+    const json = JSON.parse(req.body.resumeData || '{}');
     const photoBuffer = req.file ? req.file.buffer : null;
+    const theme = req.body.theme || 'blue'; // 👈 extract theme from form data
 
-    const pdfBuffer = await generatePDF(json, photoBuffer);
+    const pdfBuffer = await generatePDF(json, photoBuffer, theme);
 
     res.set({
       'Content-Type': 'application/pdf',

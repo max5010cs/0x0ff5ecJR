@@ -24,6 +24,7 @@ export default function Home() {
   const [skills, setSkills] = useState('');
   const [language, setLanguage] = useState('English');
   const [style, setStyle] = useState('Modern');
+  const [theme, setTheme] = useState('blue'); // Theme for PDF
   const [photo, setPhoto] = useState(null);
 
   const [loading, setLoading] = useState(false);
@@ -80,6 +81,7 @@ export default function Home() {
       const formData = new FormData();
       formData.append('resumeData', JSON.stringify(resumeJSON));
       if (photo) formData.append('photo', photo);
+      formData.append('theme', theme);
 
       const res = await fetch(`${API_BASE}/api/export-pdf`, {
         method: 'POST',
@@ -129,6 +131,14 @@ export default function Home() {
 
         <label>Upload Photo</label>
         <input className="input-field" type="file" accept="image/*" onChange={(e) => setPhoto(e.target.files[0])} />
+
+        <label>Theme</label>
+        <select className="input-field" value={theme} onChange={(e) => setTheme(e.target.value)}>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="red">Red</option>
+          <option value="mono">Monochrome</option>
+        </select>
 
         <label>Language</label>
         <select className="input-field" value={language} onChange={(e) => setLanguage(e.target.value)}>

@@ -1,7 +1,12 @@
 import { useState } from 'react';
-import axios from 'axios';
 import ResumePreview from '../components/ResumePreview';
 import './Home.css';
+
+// ✅ Auto-switch backend URL based on environment
+const API_BASE =
+  import.meta.env.MODE === 'development'
+    ? 'http://localhost:3001'
+    : 'https://zerox0ff5ecjr.onrender.com';
 
 export default function Home() {
   const [fullName, setFullName] = useState('');
@@ -28,17 +33,23 @@ export default function Home() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:3001/api/generate', {
-        fullName,
-        jobTitle,
-        about,
-        experience,
-        education,
-        skills: skills.split(',').map((s) => s.trim()),
-        language,
-        style,
+      const res = await fetch(`${API_BASE}/api/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName,
+          jobTitle,
+          about,
+          experience,
+          education,
+          skills: skills.split(',').map((s) => s.trim()),
+          language,
+          style,
+        }),
       });
-      setResumeText(res.data);
+
+      const text = await res.text();
+      setResumeText(text);
       setShowPreview(true);
     } catch (error) {
       console.error('Error generating resume:', error);
@@ -50,25 +61,19 @@ export default function Home() {
 
   const handleDownloadPDF = async () => {
     try {
-      const response = await axios.post(
-        'http://localhost:3001/api/export-pdf',
-        resumeText, // ✅ raw string only
-        {
-          headers: {
-            'Content-Type': 'text/plain',
-          },
-          responseType: 'blob',
-        }
-      );
+      const res = await fetch(`${API_BASE}/api/export-pdf`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: resumeText,
+      });
 
-      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'resume.pdf');
-      document.body.appendChild(link);
+      link.download = 'resume.pdf';
       link.click();
-      link.remove();
+      URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Download failed:', error);
       alert('Failed to download PDF.');

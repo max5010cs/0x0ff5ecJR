@@ -2,40 +2,89 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
-// 🔁 OPTIONAL: Uncomment when switching to OpenAI GPT (requires billing)
-// const { OpenAI } = require('openai');
-// const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
 router.post('/', async (req, res) => {
   const {
     fullName,
     jobTitle,
     about,
+    phone,
+    email,
+    location,
+    linkedin,
+    github,
+    telegram,
+    languages,
+    hobbies,
     experience,
     education,
     skills,
-    style = 'modern',     // e.g., 'classic', 'minimal'
-    language = 'English', // e.g., 'English', 'Spanish'
+    style = 'Modern',
+    language = 'English',
   } = req.body;
 
-  // 🧠 AI Prompt
 const prompt = `
-You are an expert resume writer with deep knowledge of modern hiring practices.
+You are an expert resume writer and career coach AI.
 
-Your task is to create a polished, recruiter-friendly, and ATS-optimized one-page resume from the provided structured data.
+Your task is to generate a **professional one-page resume** in structured **JSON format**, based on the user's raw inputs.
 
-✦ Return the resume in **well-formatted plain text** (not JSON, not Markdown).
-✦ Use clear section headers: "Summary", "Experience", "Education", and "Skills".
-✦ Write in confident, professional, and concise language.
-✦ Expand short inputs with realistic professional phrasing.
-✦ The resume should look ready to paste into a document or export as a PDF.
-✦ Maintain readability and logical flow, as if written by a human expert.
+🧠 IMPORTANT INSTRUCTIONS:
+- Be creative, persuasive, and realistic.
+- Rewrite basic terms (like "CSS" or "football") into **professional, resume-worthy phrasing**.
+- Use bullet-style summaries and recruiter-attractive language.
+- Fill in missing detail where needed — write like a human expert would.
+- Use confident and polished tone throughout.
 
-Input:
+⚠️ OUTPUT FORMAT:
+- Do NOT include any explanation, pre-text, or \`\`\`json wrappers.
+- Return a clean JSON object in the exact shape below.
+- Values like "skills", "languages", and "hobbies" must be arrays of **complete, expanded strings** (not keywords).
+
+JSON structure:
+{
+  "fullName": "",
+  "jobTitle": "",
+  "about": "",
+  "contact": {
+    "phone": "",
+    "email": "",
+    "location": "",
+    "linkedin": "",
+    "github": "",
+    "telegram": ""
+  },
+  "languages": [],
+  "hobbies": [],
+  "experience": [
+    {
+      "company": "",
+      "title": "",
+      "date": "",
+      "desc": ""
+    }
+  ],
+  "education": [
+    {
+      "school": "",
+      "degree": "",
+      "date": ""
+    }
+  ],
+  "skills": []
+}
+
+Use this input:
 ===
 Full Name: ${fullName}
 Target Job Title: ${jobTitle}
 About: ${about}
+Phone: ${phone}
+Email: ${email}
+Location: ${location}
+LinkedIn: ${linkedin}
+GitHub: ${github}
+Telegram: ${telegram}
+Languages: ${languages.join(', ')}
+Hobbies: ${hobbies.join(', ')}
 
 Experience:
 ${experience.map((e, i) =>
@@ -46,72 +95,65 @@ ${education.map((e, i) =>
   `${i + 1}. ${e.degree} - ${e.school} (${e.date})`).join('\n')}
 
 Skills: ${skills.join(', ')}
+Style: ${style}
+Language: ${language}
 ===
 
-Format the resume output as follows:
-------------------------------
-FULL NAME  
-TARGET JOB TITLE
-
-Summary:  
-...
-
-Experience:  
-...
-
-Education:  
-...
-
-Skills:  
-...
-------------------------------
-Only return the resume text. No additional explanation.
+ONLY return the final structured JSON resume. Do not explain anything.
 `;
 
 
-  // ✅ MAIN: OpenRouter Request
   try {
     const response = await axios.post(
       'https://openrouter.ai/api/v1/chat/completions',
       {
         model: 'deepseek/deepseek-chat:free',
         messages: [
-          { role: 'system', content: 'You format resumes into elegant, clean plain text.' },
+          { role: 'system', content: 'You generate professional resumes in strict JSON format.' },
           { role: 'user', content: prompt },
         ],
         temperature: 0.5,
       },
       {
         headers: {
-          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
+          Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
           'Content-Type': 'application/json',
         },
       }
     );
 
-    const raw = response.data.choices?.[0]?.message?.content || '';
-    console.log('\n------ START OF AI RESPONSE ------\n' + raw + '\n------ END OF AI RESPONSE ------');
-    return res.send(raw); // plain text resume
+    let raw = response.data.choices?.[0]?.message?.content || '';
+    console.log('\n------ START OF AI JSON RESPONSE ------\n' + raw + '\n------ END OF AI RESPONSE ------');
+
+    // Clean potential wrapping from backticks or markdown
+    const cleanJSON = raw.trim().replace(/^```(?:json)?|```$/g, '').trim();
+
+    try {
+      const parsed = JSON.parse(cleanJSON);
+      return res.json(parsed);
+    } catch (parseError) {
+      console.error('❌ JSON Parse Error:', parseError);
+      return res.status(500).json({ error: 'Invalid JSON format from AI.', raw: cleanJSON });
+    }
   }
 
-  // 🔁 FALLBACK: GPT-3.5/4 (uncomment below when ready)
   /*
   catch (openRouterError) {
     console.warn('⚠️ OpenRouter failed:', openRouterError?.response?.data || openRouterError.message);
 
     try {
       const gptChat = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo', // or 'gpt-4'
+        model: 'gpt-3.5-turbo',
         messages: [
-          { role: 'system', content: 'You generate professional resumes in clean plain text.' },
+          { role: 'system', content: 'You generate structured JSON resumes.' },
           { role: 'user', content: prompt },
         ],
         temperature: 0.4,
       });
 
       const gptResponse = gptChat.choices[0]?.message?.content || '';
-      console.log('\n✅ Fallback GPT response:\n' + gptResponse);
-      return res.send(gptResponse);
+      const fallbackParsed = JSON.parse(gptResponse);
+      return res.json(fallbackParsed);
     } catch (gptError) {
       console.error('❌ GPT fallback failed:', gptError?.response?.data || gptError.message);
       return res.status(500).json({ error: 'Both AI providers failed.', details: gptError.message });

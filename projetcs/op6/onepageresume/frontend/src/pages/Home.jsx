@@ -24,9 +24,10 @@ export default function Home() {
   const [skills, setSkills] = useState('');
   const [language, setLanguage] = useState('English');
   const [style, setStyle] = useState('Modern');
+  const [photo, setPhoto] = useState(null);
 
   const [loading, setLoading] = useState(false);
-  const [resumeText, setResumeText] = useState('');
+  const [resumeJSON, setResumeJSON] = useState(null);
   const [showPreview, setShowPreview] = useState(false);
 
   const handleAddExperience = () => {
@@ -37,7 +38,7 @@ export default function Home() {
     setEducation([...education, { school: '', degree: '', date: '' }]);
   };
 
-  const handleSubmit = async () => {
+  const handleGenerateResume = async () => {
     setLoading(true);
     try {
       const res = await fetch(`${API_BASE}/api/generate`, {
@@ -63,8 +64,8 @@ export default function Home() {
         }),
       });
 
-      const text = await res.text();
-      setResumeText(text);
+      const json = await res.json();
+      setResumeJSON(json);
       setShowPreview(true);
     } catch (error) {
       console.error('Error generating resume:', error);
@@ -76,10 +77,13 @@ export default function Home() {
 
   const handleDownloadPDF = async () => {
     try {
+      const formData = new FormData();
+      formData.append('resumeData', JSON.stringify(resumeJSON));
+      if (photo) formData.append('photo', photo);
+
       const res = await fetch(`${API_BASE}/api/export-pdf`, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: resumeText,
+        body: formData,
       });
 
       const blob = await res.blob();
@@ -122,6 +126,9 @@ export default function Home() {
 
         <label>Hobbies & Interests</label>
         <input className="input-field" value={hobbies} onChange={(e) => setHobbies(e.target.value)} />
+
+        <label>Upload Photo</label>
+        <input className="input-field" type="file" accept="image/*" onChange={(e) => setPhoto(e.target.files[0])} />
 
         <label>Language</label>
         <select className="input-field" value={language} onChange={(e) => setLanguage(e.target.value)}>
@@ -195,13 +202,13 @@ export default function Home() {
         <input className="input-field" value={skills} onChange={(e) => setSkills(e.target.value)} />
       </div>
 
-      <button className="submit-button" onClick={handleSubmit} disabled={loading}>
+      <button className="submit-button" onClick={handleGenerateResume} disabled={loading}>
         {loading ? 'Generating...' : 'Generate Resume'}
       </button>
 
-      {showPreview && (
+      {showPreview && resumeJSON && (
         <ResumePreview
-          text={resumeText}
+          json={resumeJSON}
           onClose={() => setShowPreview(false)}
           onDownload={handleDownloadPDF}
         />

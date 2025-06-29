@@ -1,0 +1,10 @@
+Passive DNS lookup
+
+
+DIG   stands for Domain Infrastructure Groper. It is a DNS look up tool used to query DNS records associated with a domain. DNS records tell us how a domain name translates into IP addresses, how it handles email, servers it uses, and more.
+
+dig ************.com --- By default, this retrives the A record (IPV4 address) of the domain. To specify, A can be used as dig ***********.com A.
+dig ************.com CNAME ---- Queries for the CNAME record, which is an alias -- e.g, this domain might just point to another domain like edge.cloudflare.net
+dig ************.com MX ---- retrieves the mail exchange (MX) records -- tells which mail servers handle emails for this domain.
+dig ************.com NS ---- Retrieves the Name servers (NS) records -- these are the servers that respond to DNS queries for this domain. 
+dig ************.com TXT ---- Retrieves TXT records containing metadata. 

@@ -1,0 +1,414 @@
+/* Landing.css */
+
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9fafb;
+  color: #0f172a;
+  transition: background 0.4s, color 0.4s;
+  overflow-x: hidden;
+}
+
+body.dark {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: 1rem;
+}
+
+body.dark .header {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.logo-text .dot {
+  color: #3b82f6;
+}
+
+.logo-3d {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.logo-animation {
+  width: 64px;
+  height: 64px;
+  margin-left: 1rem;
+}
+
+.theme-toggle-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  margin-left: 1rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+}
+
+.logo-animation {
+  width: 48px;
+  height: 48px;
+  margin-left: 0;
+}
+
+/* Hero */
+.hero {
+  padding: 5rem 2rem;
+  background: linear-gradient(to bottom, #e0f2fe, #f8fafc);
+  position: relative;
+  overflow: hidden;
+}
+
+body.dark .hero {
+  background: linear-gradient(to bottom, #0f172a, #1e293b);
+}
+
+.creative-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.hero-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #64748b;
+}
+
+body.dark .hero-sub {
+  color: #cbd5e1;
+}
+
+.cta-button {
+  background: #3b82f6;
+  color: white;
+  padding: 0.75rem 1.6rem;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.2);
+}
+
+.cta-button:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-img-animated {
+  width: 100%;
+  max-width: 500px;
+}
+
+/* Demo Section */
+.demo-preview {
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: transparent !important;
+}
+
+body.dark .demo-preview {
+  background: transparent !important; 
+}
+
+
+.demo-preview h2.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #1e293b;
+}
+
+
+
+.demo-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rem;
+  perspective: 1200px;
+  flex-wrap: wrap;
+  background: white;
+}
+
+.demo-item {
+  width: 200px;
+  height: auto;
+  padding: 1rem;
+  border-radius: 16px;
+  
+  
+  animation: floatY 4s ease-in-out infinite, rotateY 8s ease-in-out infinite;
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.demo-item:hover {
+  transform: scale(1.08) rotateY(10deg);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.demo-item:nth-child(1) { animation-delay: 0s; }
+.demo-item:nth-child(2) { animation-delay: 0.3s; }
+.demo-item:nth-child(3) { animation-delay: 0.6s; }
+
+body.dark .demo-item {
+  box-shadow: 0 6px 16px rgba(255, 255, 255, 0.08);
+}
+
+.demo-caption {
+  margin-top: 0.75rem;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #334155;
+  transition: color 0.3s ease;
+}
+
+body.dark .demo-caption {
+  color: #f8fafc;
+}
+
+
+/* How It Works */
+.how-section {
+  padding: 4rem 2rem;
+  background: #fff;
+}
+
+body.dark .how-section {
+  background: #0f172a;
+}
+
+.how-grid {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-around;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.step-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeInRight 2s ease;
+  max-width: 500px;
+}
+
+.step-item {
+  background: #f1f5f9;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s, background 0.3s;
+  cursor: pointer;
+}
+
+.step-item:hover {
+  transform: scale(1.03);
+  background: #e0f2fe;
+}
+
+body.dark .step-item {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.how-animation {
+  display: flex;
+  justify-content: center;
+}
+
+.how-visual {
+  width: 100%;
+  max-width: 400px;
+  animation: floatY 6s ease-in-out infinite;
+}
+
+/* Testimonials */
+.testimonials {
+  background: #f8fafc;
+  padding: 4rem 2rem;
+}
+
+body.dark .testimonials {
+  background: #1e293b;
+}
+
+.testimonial-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.testimonial-card {
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  max-width: 600px;
+  font-style: italic;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 1s ease both;
+}
+
+body.dark .testimonial-card {
+  background: #334155;
+  color: #e2e8f0;
+}
+
+/* CTA */
+.cta-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #e0f2fe;
+}
+
+body.dark .cta-section {
+  background: #1e293b;
+}
+
+.cta-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cta-button.large {
+  font-size: 1.1rem;
+  padding: 1rem 2.5rem;
+  margin-top: 1rem;
+}
+
+/* Footer */
+.footer {
+  padding: 2rem;
+  font-size: 0.95rem;
+  text-align: center;
+  background: #f1f5f9;
+  color: white;
+}
+
+body.dark .footer {
+  background: #0f172a;
+  color: #000000;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    transform: translateX(-40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes floatY {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+
+.demo-caption {
+  margin-top: 0.75rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #334155;
+  animation: fadeInUp 1s ease;
+}
+
+body.dark .demo-caption {
+ color: black;
+}
+
+
+@keyframes floatY {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes rotateY {
+  0% {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(10deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+

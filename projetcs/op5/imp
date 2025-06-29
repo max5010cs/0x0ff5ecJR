@@ -1,0 +1,123 @@
+https://0x0ff5ec-jr.vercel.app
+Encrypted Victory. Deployed
+
+# ShadowTalk
+
+**Encrypted One-to-One Chatroom — Fully Private, Peer-Key Based**
+
+ShadowTalk is a web-based chatroom system that prioritizes **complete privacy**. It’s designed for one-to-one communication using **end-to-end encryption** in the browser — with the encryption keys never touching the server.
+
+> "Motivated by criminals, Jack, Victor, and Mr. Eggs."
+
+---
+
+## 🚀 Features
+
+* 🧩 **Frontend encryption** only — the server never sees plain-text messages
+* 🔐 **Client-shared encryption key** — shared via Telegram, in person, etc.
+* 🧠 **No authentication**, usernames, or email — just room ID and secret key
+* 🔄 **Real-time messaging** via WebSockets
+* 🌐 **Deployed via Vercel (frontend)** and **Render (backend)**
+
+---
+
+## 📸 Demo
+
+Try it live: [https://0x0ff5ec-jr.vercel.app](https://0x0ff5ec-jr.vercel.app)
+
+---
+
+## 🛠️ How It Works
+
+1. **Create a Room**
+   Generates a random 6-character Room ID and a 256-bit base64 key.
+
+2. **Share the Key Securely**
+   You send your friend the Room ID and Key *outside* the platform (Telegram, etc).
+
+3. **Join the Room**
+   Enter the Room ID and Key — if both match, you're in.
+
+4. **Start Messaging**
+   All messages are encrypted on the client, sent via WebSocket, and decrypted only by the peer.
+
+---
+
+## 🔒 Security Principles
+
+* **End-to-end encryption** via AES-GCM
+* **Encryption key never leaves the browser**
+* **Backend only relays messages** — stateless, no logs, no metadata
+* **Minimal attack surface**
+
+---
+
+## 📁 Project Structure
+
+```
+/frontend   → React + Vite + TypeScript UI
+/backend    → Node.js WebSocket relay server
+```
+
+---
+
+## 🧪 Local Development
+
+### Backend
+
+```bash
+cd backend
+npm install
+node server.js
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Then go to `http://localhost:5173`
+
+---
+
+## 🚢 Deployment
+
+* Frontend → Vercel (with `/frontend` as root)
+* Backend → Render (Web Service)
+
+Ensure your frontend WebSocket client uses:
+
+```ts
+const ws = new WebSocket("wss://your-backend.onrender.com");
+```
+
+---
+
+## 🤓 Tech Stack
+
+* React + Vite + TypeScript
+* Node.js + ws (WebSocket)
+* Crypto API (SubtleCrypto) for AES-GCM
+
+---
+
+## ❤️ Inspired by
+
+* [Signal](https://signal.org/)
+* Hacker culture
+* Anonymous vibes
+* "Nothing to hide" is not a policy — **privacy is power**
+
+---
+
+## 📄 License
+
+MIT — use, modify, or build on top of it. Go dark. Go private.
+
+---
+
+Built with ❤️ by Max
+

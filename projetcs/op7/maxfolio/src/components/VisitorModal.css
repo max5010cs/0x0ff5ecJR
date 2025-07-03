@@ -1,0 +1,125 @@
+/* VisitorModal.css */
+
+.visitor-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 40;
+}
+
+.visitor-modal {
+  position: fixed;
+  z-index: 50;
+  width: 320px;
+  padding: 24px;
+  border-radius: 16px;
+  background: #121212;
+  color: #f1f1f1;
+  box-shadow: 0 0 40px rgba(0, 255, 180, 0.25);
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.visitor-modal h2 {
+  margin-top: 0;
+  font-size: 20px;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.visitor-modal input {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  color: #f1f1f1;
+  font-size: 14px;
+}
+
+.visitor-modal input::placeholder {
+  color: #888;
+}
+
+.visitor-modal button {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00ffcc, #0077ff);
+  color: black;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.visitor-modal button:hover {
+  opacity: 0.9;
+}
+
+.visitor-avatar {
+  display: block;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 255, 180, 0.3);
+}
+
+.thanks-popup {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #00ffcc;
+}
+
+.confetti {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at center, #00ffcc 10%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: pop 0.4s ease-out forwards;
+  z-index: 999;
+}
+
+@keyframes pop {
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+
+.welcome-back-popup {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f0f0f;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  font-weight: bold;
+  z-index: 1001;
+  animation: fadeSlide 0.5s ease-in-out;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

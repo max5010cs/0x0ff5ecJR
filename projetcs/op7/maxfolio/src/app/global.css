@@ -1,0 +1,21 @@
+body {
+  background: #ffffff;
+  color: #000000;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Apply dark mode globally to everything inside body */
+body.dark {
+  background: #0f0f0f;
+  color: #ffffff;
+}
+
+body.dark .layout-main {
+  background-color: #0f0f0f;  /* matches body */
+  color: #ffffff;
+}
+
+.layout-main {
+  background-color: inherit;
+  color: inherit;
+}

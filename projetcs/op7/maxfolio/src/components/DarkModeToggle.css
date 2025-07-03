@@ -1,0 +1,27 @@
+.dark-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+.dark-toggle.light {
+  color: #333;
+  text-shadow: 0 0 5px rgba(255, 200, 0, 0.5);
+}
+
+.dark-toggle.dark {
+  color: #fff;
+  text-shadow: 0 0 8px rgba(0, 200, 255, 0.8);
+}
+
+.dark-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}

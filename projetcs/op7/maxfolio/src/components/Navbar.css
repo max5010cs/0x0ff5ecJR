@@ -1,12 +1,14 @@
 /* components/Navbar.css */
 
 .navbar {
-  background-color: #fff;
-  border-bottom: 1px solid #e5e5e5;
+  background-color: var(--bg);
+  border-bottom: 1px solid var(--subtle);
   padding: 1rem 2rem;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .navbar-container {
@@ -15,25 +17,140 @@
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
 }
 
 .navbar-logo {
   font-size: 1.5rem;
-  font-weight: bold;
-  color: #111;
+  font-weight: 800;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+/* Burger Menu */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.burger span,
+.burger span::before,
+.burger span::after {
+  display: block;
+  background-color: var(--fg);
+  height: 2px;
+  border-radius: 2px;
+  position: relative;
+  transition: 0.3s ease all;
+}
+
+.burger span::before,
+.burger span::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  left: 0;
+}
+
+.burger span::before {
+  top: -6px;
+}
+
+.burger span::after {
+  top: 6px;
+}
+
+.burger span.open {
+  background: transparent;
+}
+
+.burger span.open::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.burger span.open::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+/* Navigation Links */
 .navbar-links {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
+  transition: all 0.3s ease;
 }
 
-.navbar-links a {
+.nav-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
   font-weight: 500;
-  color: #333;
-  transition: color 0.2s ease;
+  font-size: 1rem;
+  color: var(--fg);
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
 }
 
-.navbar-links a:hover {
-  color: #000;
+.nav-link:hover {
+  background-color: var(--accent-bg);
+  color: var(--accent-fg);
+  box-shadow: 0 0 8px var(--accent);
+  transform: translateY(-1px) scale(1.03);
+}
+
+.nav-link.active {
+  background-color: var(--accent-bg);
+  color: var(--accent-fg);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.nav-link.cta {
+  font-weight: 600;
+  background: var(--accent);
+  color: var(--bg);
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.nav-link.cta:hover {
+  background: var(--accent-hover);
+  color: var(--fg);
+  box-shadow: 0 0 12px var(--accent-hover);
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .burger {
+    display: flex;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    position: absolute;
+    top: 110%;
+    right: 2rem;
+    background: var(--bg);
+    border: 1px solid var(--subtle);
+    border-radius: 10px;
+    padding: 1rem;
+    display: none;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-links.show {
+    display: flex;
+  }
+
+  .nav-link {
+    width: 100%;
+    text-align: left;
+  }
 }

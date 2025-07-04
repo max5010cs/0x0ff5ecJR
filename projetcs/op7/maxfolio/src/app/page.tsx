@@ -1,7 +1,7 @@
 'use client'
 
 import VisitorModal from '@/components/VisitorModal'
-import './page.css'
+import './styles/page.css'
 
 export default function HomePage() {
   return (

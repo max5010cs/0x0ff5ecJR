@@ -9,52 +9,14 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Define light theme */
-body {
-  --bg: #ffffff;
-  --fg: #111111;
-  --subtle: #666666;
-  --card-bg: #f9f9f9;
-  --card-fg: #444444;
-  --accent-bg: #111111;
-  --accent-fg: #ffffff;
-  --accent-hover: #333333;
-  --banner-bg: #111111;
-  --banner-fg: #ffffff;
-  --button-bg: #ffffff;
-  --button-fg: #111111;
-  --button-hover: #e2e2e2;
-}
-
-/* Define dark theme */
-body.dark {
-  --bg: #0f0f0f;
-  --fg: #f1f1f1;
-  --subtle: #bbb;
-  --card-bg: #1a1a1a;
-  --card-fg: #ccc;
-  --accent-bg: #f1f1f1;
-  --accent-fg: #0f0f0f;
-  --accent-hover: #ccc;
-  --banner-bg: #f5f5f5;
-  --banner-fg: #111111;
-  --button-bg: #111111;
-  --button-fg: #ffffff;
-  --button-hover: #333333;
-}
-
-/* 🎌 Hero Section (Text-only) */
+/* 🎌 Hero Section */
 .hero-section {
   text-align: center;
   padding: 6rem 2rem 4rem;
-  background: linear-gradient(to right, #f5f7fa, #e3eaf1);
+  background: var(--hero-bg);
   border-radius: 12px;
   margin-bottom: 4rem;
   transition: background 0.3s ease;
-}
-
-body.dark .hero-section {
-  background: linear-gradient(to right, #1c1c1c, #111);
 }
 
 .hero-content {
@@ -66,6 +28,7 @@ body.dark .hero-section {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
+  color: var(--fg);
 }
 
 .hero-subtitle {
@@ -99,6 +62,7 @@ body.dark .hero-section {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 2rem;
+  color: var(--fg);
 }
 
 .projects-grid {

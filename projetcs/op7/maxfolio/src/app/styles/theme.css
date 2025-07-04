@@ -1,0 +1,34 @@
+/* theme.css */
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --subtle: #666666;
+  --card-bg: #f9f9f9;
+  --card-fg: #444444;
+  --accent-bg: #111111;
+  --accent-fg: #ffffff;
+  --accent-hover: #333333;
+  --banner-bg: #111111;
+  --banner-fg: #ffffff;
+  --button-bg: #ffffff;
+  --button-fg: #111111;
+  --button-hover: #e2e2e2;
+  --hero-bg: linear-gradient(to right, #f5f7fa, #e3eaf1);
+}
+
+html[data-theme='dark'] {
+  --bg: #0f0f0f;
+  --fg: #f1f1f1;
+  --subtle: #bbb;
+  --card-bg: #1a1a1a;
+  --card-fg: #ccc;
+  --accent-bg: #f1f1f1;
+  --accent-fg: #0f0f0f;
+  --accent-hover: #ccc;
+  --banner-bg: #f5f5f5;
+  --banner-fg: #111111;
+  --button-bg: #111111;
+  --button-fg: #ffffff;
+  --button-hover: #333333;
+  --hero-bg: linear-gradient(to right, #1c1c1c, #111111);
+}

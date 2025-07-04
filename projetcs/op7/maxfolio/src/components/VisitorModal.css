@@ -12,7 +12,7 @@
   position: fixed;
   z-index: 50;
   width: 320px;
-  padding: 24px;
+  padding: 34px;
   border-radius: 16px;
   background: #121212;
   color: #f1f1f1;
@@ -39,6 +39,7 @@
   border: 1px solid #333;
   color: #f1f1f1;
   font-size: 14px;
+  margin-right: 5px;
 }
 
 .visitor-modal input::placeholder {

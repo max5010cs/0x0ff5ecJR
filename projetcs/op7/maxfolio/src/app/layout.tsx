@@ -1,8 +1,11 @@
-import './global.css'
+// src/app/layout.tsx
+
+import './styles/global.css'
 import { Inter } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import ThemeProvider from '@/components/ThemeProvider'
+import RouteTransition from '@/components/RouteTransition'
+import ThemeToggle from '@/components/ThemeToggle'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,12 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body className={`${inter.className}`}>
-        <ThemeProvider>
-          <Navbar />
-          <main className="layout-main">{children}</main>
-          <Footer />
-        </ThemeProvider>
+      <body className={inter.className}>
+        <Navbar />
+        <ThemeToggle />
+        <main className="layout-main">
+          <RouteTransition>{children}</RouteTransition>
+        </main>
+        <Footer />
       </body>
     </html>
   )

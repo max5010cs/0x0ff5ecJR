@@ -1,44 +1,68 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Navbar.css'
 
 export default function Navbar() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
 
+  // Close mobile menu on nav click
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
+  const scrollToSection = (id: string) => {
+    const section = document.getElementById(id)
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   const links = [
-    { href: '/', label: 'Home' },
-    { href: '/projects', label: 'Projects' },
-    { href: '/services', label: 'Services' },
-    { href: '/contact', label: 'Contact', cta: true },
+    { id: 'home', label: 'Home' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'services', label: 'Services' },
+    { id: 'contact', label: 'Contact', cta: true },
   ]
 
   return (
     <header className="navbar">
       <div className="navbar-container">
-        <Link href="/" className="navbar-logo">Max</Link>
+        <a
+          href="#home"
+          onClick={(e) => {
+            e.preventDefault()
+            scrollToSection('home')
+          }}
+          className="navbar-logo"
+        >
+          Max
+        </a>
 
         <button
-          className="burger"
+          className={`burger ${open ? 'open' : ''}`}
           onClick={() => setOpen(!open)}
-          aria-label="Toggle menu"
+          aria-label="Toggle navigation"
         >
-          <span className={open ? 'open' : ''}></span>
+          <span></span>
         </button>
 
         <nav className={`navbar-links ${open ? 'show' : ''}`}>
-          {links.map(({ href, label, cta }) => (
-            <Link
-              key={href}
-              href={href}
-              className={`nav-link ${pathname === href ? 'active' : ''} ${cta ? 'cta' : ''}`}
-              onClick={() => setOpen(false)} // close on mobile click
+          {links.map(({ id, label, cta }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              onClick={(e) => {
+                e.preventDefault()
+                scrollToSection(id)
+                setOpen(false)
+              }}
+              className={`nav-link ${cta ? 'cta' : ''}`}
             >
-              {label}
-            </Link>
+              <span className="nav-label">{label}</span>
+            </a>
           ))}
         </nav>
       </div>

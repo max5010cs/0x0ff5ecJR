@@ -1,0 +1,228 @@
+/* Home.css */
+
+/* === Base hero section === */
+.hero-section {
+  width: 100%;
+  min-height: 90vh;
+  padding: 4rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s ease;
+  z-index: 0;
+}
+
+/* === Layout container === */
+.hero-container {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  gap: 4rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* === Left: Avatar === */
+.hero-left {
+  flex: 1 1 450px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.hero-img {
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
+  transition: transform 0.3s ease;
+}
+
+/* === Right: Text === */
+.hero-right {
+  flex: 1 1 500px;
+  color: white;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.gradient-name {
+  background: linear-gradient(90deg, #f59e0b, #ef4444);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-cta {
+  font-weight: 600;
+  font-size: 1.15rem;
+  background-color: #f59e0b;
+  color: #111;
+  padding: 0.8rem 2rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+  transition: background-color 0.3s ease;
+  display: inline-block;
+}
+
+.hero-cta:hover {
+  background-color: #d97706;
+}
+
+/* === Scroll Hint (↓) === */
+.scroll-hint {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  animation: bounce 2s infinite;
+  user-select: none;
+  z-index: 10;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(10px);
+  }
+}
+
+/* === Light theme background === */
+.hero-section {
+  background: linear-gradient(270deg,
+    #3126fa 0%,
+    #e9e9e9 25%,
+    #a78bfa 50%,
+    #c4b5fd 75%,
+    #4f46e5 100%);
+  background-size: 800% 800%;
+  animation: gradientShift 15s ease infinite;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(2px 2px at 10% 20%, rgba(255,255,255,0.15), transparent),
+    radial-gradient(2px 2px at 50% 40%, rgba(255,255,255,0.15), transparent),
+    radial-gradient(2px 2px at 80% 70%, rgba(255,255,255,0.15), transparent);
+  background-repeat: no-repeat;
+  animation: particlesMove 20s linear infinite;
+  z-index: 0;
+}
+
+/* === Blobs (shared between themes) === */
+.hero-section::after {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(0, 132, 255, 0.3), transparent 70%);
+  filter: blur(120px);
+  animation: blobMove 18s ease-in-out infinite alternate;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes blobMove {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  100% {
+    transform: translate(150px, 120px) scale(1.2);
+  }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes particlesMove {
+  0% { background-position: 0% 0%, 0% 0%, 0% 0%; }
+  100% { background-position: 100% 100%, 100% 100%, 100% 100%; }
+}
+
+/* === Dark theme overrides === */
+html[data-theme='dark'] .hero-section {
+  background: linear-gradient(270deg,
+    #0d0d0d 0%,
+    #1a1a2e 25%,
+    #3a3a4f 50%,
+    #1e1e2e 75%,
+    #0d0d0d 100%);
+  background-size: 800% 800%;
+  animation: gradientShift 18s ease infinite;
+}
+
+html[data-theme='dark'] .hero-section::after {
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.2), transparent 70%);
+}
+
+html[data-theme='dark'] .hero-title,
+html[data-theme='dark'] .hero-subtitle {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+html[data-theme='dark'] .hero-cta {
+  background-color: #60a5fa;
+  color: #0f0f0f;
+}
+
+html[data-theme='dark'] .hero-cta:hover {
+  background-color: #3b82f6;
+}
+
+/* === Responsive tweaks === */
+@media (max-width: 768px) {
+  .hero-container {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .hero-left,
+  .hero-right {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero-img {
+    width: 220px;
+    height: 220px;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+}

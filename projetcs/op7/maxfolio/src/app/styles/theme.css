@@ -1,34 +1,75 @@
-/* theme.css */
+/* 🌞 Light Theme */
 :root {
   --bg: #ffffff;
   --fg: #111111;
   --subtle: #666666;
-  --card-bg: #f9f9f9;
-  --card-fg: #444444;
+
+  --accent: #3b82f6;
   --accent-bg: #111111;
   --accent-fg: #ffffff;
-  --accent-hover: #333333;
-  --banner-bg: #111111;
-  --banner-fg: #ffffff;
+  --accent-hover: #2563eb;
+
+  --card-bg: #f9f9f9;
+  --card-fg: #333333;
+
   --button-bg: #ffffff;
   --button-fg: #111111;
   --button-hover: #e2e2e2;
+
+  --banner-bg: #111111;
+  --banner-fg: #ffffff;
+
+  --footer-bg: #f9f9f9;
+  --footer-fg: #666666;
+
+  --navbar-bg: rgba(255, 255, 255, 0.9);
+  --navbar-border: #e5e5e5;
+
   --hero-bg: linear-gradient(to right, #f5f7fa, #e3eaf1);
+  --hero-title: #111111;
+  --hero-subtitle: #444444;
+
+  --link: #2563eb;
+  --link-hover: #1d4ed8;
+
+  --shadow: rgba(0, 0, 0, 0.06);
+  --shadow-hover: rgba(0, 0, 0, 0.1);
 }
 
+/* 🌚 Dark Theme */
 html[data-theme='dark'] {
   --bg: #0f0f0f;
   --fg: #f1f1f1;
-  --subtle: #bbb;
-  --card-bg: #1a1a1a;
-  --card-fg: #ccc;
+  --subtle: #999999;
+
+  --accent: #60a5fa;
   --accent-bg: #f1f1f1;
   --accent-fg: #0f0f0f;
-  --accent-hover: #ccc;
-  --banner-bg: #f5f5f5;
-  --banner-fg: #111111;
+  --accent-hover: #93c5fd;
+
+  --card-bg: #1a1a1a;
+  --card-fg: #cccccc;
+
   --button-bg: #111111;
   --button-fg: #ffffff;
-  --button-hover: #333333;
+  --button-hover: #2e2e2e;
+
+  --banner-bg: #f5f5f5;
+  --banner-fg: #111111;
+
+  --footer-bg: #1a1a1a;
+  --footer-fg: #888888;
+
+  --navbar-bg: rgba(15, 15, 15, 0.9);
+  --navbar-border: #333333;
+
   --hero-bg: linear-gradient(to right, #1c1c1c, #111111);
+  --hero-title: #f1f1f1;
+  --hero-subtitle: #aaaaaa;
+
+  --link: #60a5fa;
+  --link-hover: #93c5fd;
+
+  --shadow: rgba(255, 255, 255, 0.05);
+  --shadow-hover: rgba(255, 255, 255, 0.1);
 }

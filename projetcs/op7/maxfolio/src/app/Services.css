@@ -1,0 +1,9 @@
+.services {
+  background: #fff;
+  color: #111;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

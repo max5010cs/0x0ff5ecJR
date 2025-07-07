@@ -19,8 +19,8 @@ export default function VisitorModal() {
     if (locked) return
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({
-        x: e.clientX - 550,
-        y: e.clientY - 270,
+        x: e.clientX - 160,
+        y: e.clientY - 237,
       })
     }
     window.addEventListener('mousemove', handleMouseMove)

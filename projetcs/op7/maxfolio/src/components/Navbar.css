@@ -1,16 +1,87 @@
 /* components/Navbar.css */
 
+/* === Base Nav === */
 .navbar {
-  background-color: var(--bg);
-  border-bottom: 1px solid var(--subtle);
-  padding: 1rem 2rem;
   position: sticky;
   top: 0;
   z-index: 1000;
-  backdrop-filter: blur(10px);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--subtle);
+  backdrop-filter: blur(12px);
+  transition: background 0.5s ease, border-color 0.3s ease;
+  overflow: hidden;
 }
 
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    270deg,
+    #4f46e5,
+    #3b82f6,
+    #a78bfa,
+    #c4b5fd,
+    #4f46e5
+  );
+  background-size: 600% 600%;
+  animation: navbarGradientShift 20s ease infinite;
+  opacity: 0.8;
+  z-index: -2;
+}
+
+.navbar::after {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 132, 255, 0.2), transparent 70%);
+  filter: blur(80px);
+  animation: navbarBlobMove 18s ease-in-out infinite alternate;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Dark mode overrides */
+html[data-theme='dark'] .navbar::before {
+  background: linear-gradient(
+    270deg,
+    #0d0d0d,
+    #1a1a2e,
+    #3a3a4f,
+    #1e1e2e,
+    #0d0d0d
+  );
+}
+
+html[data-theme='dark'] .navbar::after {
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.2), transparent 70%);
+}
+
+@keyframes navbarGradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes navbarBlobMove {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  100% {
+    transform: translate(100px, 50px) scale(1.2);
+  }
+}
+
+/* === Container === */
 .navbar-container {
   display: flex;
   justify-content: space-between;
@@ -20,129 +91,160 @@
   position: relative;
 }
 
+/* === Logo === */
 .navbar-logo {
   font-size: 1.5rem;
   font-weight: 800;
   color: var(--accent);
   text-transform: uppercase;
   letter-spacing: 1px;
+  transition: color 0.3s ease;
 }
 
-/* Burger Menu */
-.burger {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 24px;
-  height: 18px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-.burger span,
-.burger span::before,
-.burger span::after {
-  display: block;
-  background-color: var(--fg);
-  height: 2px;
-  border-radius: 2px;
-  position: relative;
-  transition: 0.3s ease all;
-}
-
-.burger span::before,
-.burger span::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  left: 0;
-}
-
-.burger span::before {
-  top: -6px;
-}
-
-.burger span::after {
-  top: 6px;
-}
-
-.burger span.open {
-  background: transparent;
-}
-
-.burger span.open::before {
-  transform: rotate(45deg);
-  top: 0;
-}
-
-.burger span.open::after {
-  transform: rotate(-45deg);
-  top: 0;
-}
-
-/* Navigation Links */
+/* === Links === */
 .navbar-links {
   display: flex;
   gap: 1rem;
-  transition: all 0.3s ease;
+  align-items: center;
 }
 
 .nav-link {
-  display: inline-block;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0.5rem 1rem;
   font-weight: 500;
   font-size: 1rem;
   color: var(--fg);
   border-radius: 8px;
+  transition: all 0.3s ease;
   background: transparent;
   border: 1px solid transparent;
-  transition: all 0.3s ease;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.nav-link .nav-label {
+  position: relative;
+  z-index: 1;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent-bg);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.nav-link:hover::before {
+  opacity: 1;
 }
 
 .nav-link:hover {
-  background-color: var(--accent-bg);
   color: var(--accent-fg);
-  box-shadow: 0 0 8px var(--accent);
-  transform: translateY(-1px) scale(1.03);
+  transform: scale(1.03);
+  box-shadow: 0 0 10px var(--accent);
 }
 
+/* === Active State === */
 .nav-link.active {
-  background-color: var(--accent-bg);
+  background: var(--accent-bg);
   color: var(--accent-fg);
   box-shadow: 0 0 12px var(--accent);
 }
 
+/* === CTA === */
 .nav-link.cta {
+  background: linear-gradient(135deg, var(--accent), #9333ea);
+  color: white;
   font-weight: 600;
-  background: var(--accent);
-  color: var(--bg);
-  box-shadow: 0 0 10px var(--accent);
+  border: none;
+  box-shadow: 0 0 12px var(--accent);
+  transition: all 0.3s ease;
 }
 
 .nav-link.cta:hover {
-  background: var(--accent-hover);
-  color: var(--fg);
-  box-shadow: 0 0 12px var(--accent-hover);
+  background: linear-gradient(135deg, #60a5fa, #a855f7);
+  box-shadow: 0 0 16px var(--accent-hover);
+  transform: scale(1.05);
 }
 
-/* Mobile Styles */
+/* === Burger === */
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  width: 24px;
+  height: 18px;
+  z-index: 1100;
+}
+
+.burger span,
+.burger::before,
+.burger::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: var(--fg);
+  transition: 0.3s ease all;
+  border-radius: 2px;
+  left: 0;
+}
+
+.burger span {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.burger::before {
+  top: 0;
+}
+
+.burger::after {
+  bottom: 0;
+}
+
+.burger.open span {
+  background: transparent;
+}
+
+.burger.open::before {
+  transform: rotate(45deg);
+  top: 8px;
+}
+
+.burger.open::after {
+  transform: rotate(-45deg);
+  bottom: 8px;
+}
+
+/* === Mobile === */
 @media (max-width: 768px) {
   .burger {
-    display: flex;
+    display: block;
   }
 
   .navbar-links {
-    flex-direction: column;
     position: absolute;
-    top: 110%;
-    right: 2rem;
-    background: var(--bg);
+    top: 100%;
+    right: 0;
+    background-color: var(--bg);
     border: 1px solid var(--subtle);
-    border-radius: 10px;
+    flex-direction: column;
     padding: 1rem;
+    border-radius: 12px;
     display: none;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    min-width: 180px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(12px);
   }
 
   .navbar-links.show {
@@ -152,5 +254,11 @@
   .nav-link {
     width: 100%;
     text-align: left;
+    padding: 0.75rem 1rem;
+  }
+
+  .nav-link.cta {
+    text-align: center;
+    font-weight: 700;
   }
 }

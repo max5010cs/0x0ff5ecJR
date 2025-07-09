@@ -34,10 +34,24 @@
 
   --shadow: rgba(0, 0, 0, 0.06);
   --shadow-hover: rgba(0, 0, 0, 0.1);
+    
+  --card-bg: #fff;
+  --card-fg: #111;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --shadow-hover: rgba(0, 0, 0, 0.15);
+  --fg: #222;
+  --subtle: #777;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+
+  --glow: #4b8dff;
 }
 
 /* 🌚 Dark Theme */
 html[data-theme='dark'] {
+
+  --glow: #00ffc3;
+
   --bg: #0f0f0f;
   --fg: #f1f1f1;
   --subtle: #999999;
@@ -72,4 +86,11 @@ html[data-theme='dark'] {
 
   --shadow: rgba(255, 255, 255, 0.05);
   --shadow-hover: rgba(255, 255, 255, 0.1);
+
+  --card-bg: #1f1f1f;
+  --card-fg: #eee;
+  --shadow: rgba(255, 255, 255, 0.05);
+  --shadow-hover: rgba(255, 255, 255, 0.1);
+  --fg: #eaeaea;
+  --subtle: #888;
 }

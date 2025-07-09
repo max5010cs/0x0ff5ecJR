@@ -60,6 +60,7 @@
 .gradient-name {
   background: linear-gradient(90deg, #f59e0b, #ef4444);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

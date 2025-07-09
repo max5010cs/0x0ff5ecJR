@@ -1,9 +1,304 @@
-.projects {
-  background: #f5f5f5;
-  color: #111;
-  height: 100vh;
+/* 🌌 SECTION BASE */
+.projects-scroll-section {
+  padding: 6rem 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  overflow-x: hidden;
+  align-items: center;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.projects-heading {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* 📦 PROJECT ROWS */
+.project-row-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 1rem;
+}
+
+.project-row {
+  display: flex;
+  gap: 2rem;
+}
+
+.project-row.infinite {
+  width: max-content;
+  min-width: 130%;
+}
+
+/* 🃏 PROJECT CARDS */
+.project-card {
+  flex: 0 0 auto;
+  width: 280px;
+  border-radius: 1rem;
+  background: var(--card-bg);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  border: 1px solid transparent;
+  z-index: 1;
+}
+
+.project-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px var(--glow);
+  border-color: var(--glow);
+}
+
+.project-img-wrapper {
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-img {
+  transform: scale(1.1);
+}
+
+.project-meta {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.project-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.project-stack {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  opacity: 0.7;
+}
+
+/* 💬 MODAL BACKDROP + ANIMATION */
+.project-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.8)
+  );
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease forwards;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  z-index: 1000;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+.project-modal {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 900px;
+  width: 85vw;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  animation: popIn 0.4s ease forwards;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-content {
+  display: flex;
+  flex: 1;
+  gap: 2rem;
+  overflow-y: auto;
+}
+
+.modal-left {
+  flex: 1;
+}
+
+.modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.75rem;
+}
+
+.modal-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.modal-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.modal-actions a {
+  background: var(--glow);
+  color: #000;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.modal-actions a:hover {
+  background: #fff;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  background: transparent;
+  color: var(--text-primary);
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* 🌠 BACKGROUND GLOW EFFECTS */
+.background-decor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1; /* push behind everything in the section */
+  overflow: hidden;
+}
+
+.background-decor::before,
+.background-decor::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(160px);
+  animation: floatOrb 10s ease-in-out infinite alternate;
+  opacity: 0.25;              /* ⬅️ boost this */
+  filter: blur(180px);        /* ⬅️ slight increase */
+  mix-blend-mode: lighten;    /* ⬅️ adds beautiful glow effect */
+  background: radial-gradient(circle, var(--glow), transparent 70%);
+  opacity: 1.1;
+  mix-blend-mode: screen;
+}
+
+.background-decor::before {
+  top: -100px;
+  left: -150px;
+  animation-delay: 0s;
+}
+
+.background-decor::after {
+  bottom: -100px;
+  right: -150px;
+  animation-delay: 5s;
+}
+
+
+@keyframes floatOrb {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, 40px) scale(1.1); }
+}
+
+
+/* 🌗 THEME VARIABLES */
+:root {
+  --card-bg: #ffffff;
+  --text-primary: #111;
+  --glow: #4b8dff;
+  --bg: #f5f7fa;
+}
+
+[data-theme='dark'] {
+  --card-bg: #1a1a1a;
+  --text-primary: #f0f0f0;
+  --glow: #00ffc3;
+  --bg: #0e0e0e;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+  .project-card {
+    width: 240px;
+  }
+
+  .modal-content {
+    flex-direction: column;
+  }
+
+  .modal-img {
+    max-height: 250px;
+  }
+
+  .modal-title {
+    font-size: 1.4rem;
+  }
 }

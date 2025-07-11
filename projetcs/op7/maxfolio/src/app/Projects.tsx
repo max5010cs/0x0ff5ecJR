@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import ParticlesBackground from '../components/ParticlesBackground'
 import './Projects.css'
 
 const NUM_ROWS = 4
@@ -38,11 +39,14 @@ export default function ProjectsScroller() {
 
   return (
     <section id="projects" className="projects-scroll-section" ref={sectionRef}>
+      {/* 🔵 tsParticles background */}
+       <div className="particles-wrapper">
+        <div className="gradient-bg" />
+         <ParticlesBackground />
+       </div>
 
-      <div className="background-decor" aria-hidden />
 
-      <h2 className="projects-heading">📁 My Projects</h2>
-
+         
       {Array.from({ length: NUM_ROWS }).map((_, rowIndex) => {
         const isEven = rowIndex % 2 === 0
         const x = useTransform(scrollYProgress, [0, 1], isEven ? ['0%', '-25%'] : ['-25%', '0%'])
@@ -52,7 +56,7 @@ export default function ProjectsScroller() {
         const rowProjects = originalProjects.slice(start, end).concat(originalProjects.slice(start, end))
 
         return (
-          <div className="project-row-container" key={`container-${rowIndex}`}> 
+          <div className="project-row-container" key={`container-${rowIndex}`}>
             <motion.div
               className="project-row infinite"
               style={{ x }}
@@ -69,6 +73,7 @@ export default function ProjectsScroller() {
                   transition={{ duration: 0.5, delay: cardIndex * 0.1 }}
                   viewport={{ once: true, margin: '-100px' }}
                   onClick={() => setSelectedProject(project)}
+                  tabIndex={0}
                 >
                   <div className="project-img-wrapper">
                     <img src={project.image} alt={project.title} className="project-img" />
@@ -109,8 +114,8 @@ export default function ProjectsScroller() {
                   <h2 className="modal-title">{selectedProject.title}</h2>
                   <p className="modal-description">{selectedProject.description}</p>
                   <div className="modal-actions">
-                    <a href={selectedProject.demo} target="_blank">🔗 Live Demo</a>
-                    <a href={selectedProject.github} target="_blank">🐙 GitHub</a>
+                    <a href={selectedProject.demo} target="_blank" rel="noopener noreferrer">🔗 Live Demo</a>
+                    <a href={selectedProject.github} target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
                   </div>
                 </div>
               </div>

@@ -44,7 +44,7 @@ function App() {
 ╚═╝     ╚══════╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   `}
       </pre>
       <p className="subtitle">Welcome to ShadowTalk</p>
-      <p className="quote">"Motivated by criminals, Jack, Victor, and Mr. Eggs."</p>
+      <p className="quote">"Motivated by Jack, Victor, and Mr. Eggs."</p>
 
       {mode === 'initial' && (
         <div className="form-block">

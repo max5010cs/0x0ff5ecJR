@@ -40,9 +40,51 @@
   height: 360px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
-  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 25px var(--glow);
+  animation: rippleGlow 6s ease-in-out infinite;
+  transition: transform 0.4s ease;
 }
+
+/* 💫 Internal glowing scale effect */
+@keyframes rippleGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 25px var(--glow), 0 0 50px rgba(0, 255, 255, 0.2);
+  }
+  50% {
+    transform: scale(1.015);
+    box-shadow: 0 0 35px var(--glow), 0 0 60px rgba(0, 255, 255, 0.4);
+  }
+}
+
+/* 🌊 External water ripple ring effect */
+.hero-img::before {
+  content: '';
+  position: absolute;
+  top: -15%;
+  left: -15%;
+  width: 130%;
+  height: 130%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow), transparent 70%);
+  animation: pulseRing 4s ease-in-out infinite;
+  opacity: 0.25;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Ripple expands like soft water pulse */
+@keyframes pulseRing {
+  0% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.15); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 0.3; }
+}
+
+
+
+
 
 /* === Right: Text === */
 .hero-right {
@@ -181,7 +223,7 @@ html[data-theme='dark'] .hero-section {
     #0d0d0d 100%);
   background-size: 800% 800%;
   animation: gradientShift 18s ease infinite;
-}
+} 
 
 html[data-theme='dark'] .hero-section::after {
   background: radial-gradient(circle, rgba(96, 165, 250, 0.2), transparent 70%);
@@ -226,4 +268,141 @@ html[data-theme='dark'] .hero-cta:hover {
   .hero-subtitle {
     font-size: 1.1rem;
   }
+}
+
+
+
+
+
+/* 🔥 TOP & BOTTOM ANIMATED BORDER LINES */
+.border-line {
+  position: absolute;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    #ff00cc,
+    #3333ff,
+    #00ffee,
+    #00ff66,
+    #ffcc00,
+    #ff0066,
+    #ff00cc
+  );
+  background-size: 300% 100%;
+  animation: flow 5s linear infinite;
+  opacity: 0.7;
+  box-shadow: 0 0 12px var(--glow);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.border-line.top {
+  top: 0;
+}
+
+.border-line.bottom {
+  bottom: 0;
+}
+
+@keyframes flow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+
+
+
+/* 🌈 Vibrant Decorative Elements for Hero/Landing */
+
+.gradient-ring {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 0, 153, 0.3), transparent 70%);
+  opacity: 0.9;
+  animation: pulseClear 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-ring.top-left {
+  width: 320px;
+  height: 320px;
+  top: -60px;
+  left: -60px;
+}
+
+.gradient-ring.bottom-right {
+  width: 300px;
+  height: 300px;
+  bottom: -60px;
+  right: -60px;
+}
+
+@keyframes pulseClear {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.aurora-streak {
+  position: absolute;
+  top: 50%;
+  left: -30%;
+  width: 160%;
+  height: 160px;
+  background: linear-gradient(
+    115deg,
+    transparent,
+    rgba(0, 255, 234, 0.4),
+    rgba(255, 0, 200, 0.4),
+    transparent
+  );
+  opacity: 0.4;
+  transform: rotate(8deg);
+  animation: sweepLine 12s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+.aurora-streak.secondary {
+  top: 30%;
+  left: -20%;
+  height: 100px;
+  transform: rotate(-6deg);
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(0, 170, 255, 0.3),
+    rgba(255, 50, 100, 0.4),
+    transparent
+  );
+  animation-delay: 2s;
+}
+
+.aurora-streak.tertiary {
+  top: 70%;
+  left: -25%;
+  height: 180px;
+  transform: rotate(5deg);
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 150, 0, 0.3),
+    rgba(0, 200, 255, 0.4),
+    transparent
+  );
+  animation-delay: 4s;
+}
+
+
+@keyframes sweepLine {
+  0% { transform: translateX(-50%) rotate(8deg); }
+  100% { transform: translateX(50%) rotate(8deg); }
 }

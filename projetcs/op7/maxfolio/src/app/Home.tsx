@@ -26,6 +26,17 @@ export default function Home() {
 
   return (
     <section id="home" className={`hero-section ${theme}`}>
+
+    {/* 🌌 Background Effects */}
+
+  <div className="border-line top" />
+  <div className="gradient-ring top-left" />
+  <div className="gradient-ring bottom-right" />
+  <div className="aurora-streak" />
+  <div className="aurora-streak secondary" />
+  <div className="aurora-streak tertiary" />
+
+
       <div className="hero-container">
         {/* Left: Profile picture */}
         <motion.div
@@ -75,6 +86,8 @@ export default function Home() {
       </div>
 
       <div className="scroll-hint">↓</div>
+
+        <div className="border-line bottom" />
     </section>
   )
 }

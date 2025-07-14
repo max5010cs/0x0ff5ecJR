@@ -53,7 +53,7 @@ const realProjects: Project[] = [
     description:
       'OnePageResume is a full-stack AI tool that transforms raw personal and career data into polished, professional one-page resumes in seconds. The backend supports photo uploads, customizable themes, and PDF downloads.',
     demo: 'https://0x0ff5ec-jr-zmly.vercel.app',
-    github: 'https://github.com/max5010cs/0x0ff5ec/op6',
+    github: 'https://github.com/max5010cs/0x0ff5ecJR/tree/main/projetcs/op6/onepageresume',
     techStack: ['React', 'Vite', 'Node.js', 'OpenRouter', 'PDF Export']
   },
   {

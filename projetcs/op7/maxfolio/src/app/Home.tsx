@@ -46,7 +46,7 @@ export default function Home() {
           transition={{ duration: 0.9 }}
           viewport={{ once: true }}
         >
-          <img src="/pfp.png" alt="Max avatar" className="hero-img" />
+          <img src="/try.jpg" alt="Max avatar" className="hero-img" />
         </motion.div>
 
         {/* Right: Text content */}

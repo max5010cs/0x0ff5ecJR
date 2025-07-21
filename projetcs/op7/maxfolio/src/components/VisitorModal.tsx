@@ -49,31 +49,39 @@ export default function VisitorModal() {
     }
   }, [])
 
-  const handleSubmit = async () => {
-    if (!name.trim()) return alert('Name is required.')
+const handleSubmit = async () => {
+  if (!name.trim()) return alert('Name is required.')
 
-    const { error } = await supabase.from('visitors').insert([
-      { name: name.trim(), company: company.trim() || null },
-    ])
+  // Try sending to Supabase
+  const { error } = await supabase.from('visitors').insert([
+    { name: name.trim(), company: company.trim() || null },
+  ])
 
-    if (error) {
-      console.error(error.message)
-      alert('Submission failed. Try again.')
-      return
-    }
+  if (error) {
+    console.warn('[VisitorModal] Supabase error:', error.message)
 
-    localStorage.setItem('visitorName', name.trim())
-    setSubmitted(true)
-
-    const confetti = document.createElement('div')
-    confetti.className = 'confetti'
-    document.body.appendChild(confetti)
-    setTimeout(() => confetti.remove(), 1000)
-
-    setTimeout(() => {
-      setShouldShowModal(false)
-    }, 2000)
+    // Optional: show a friendly warning in the UI
+    const failedMessage = document.createElement('div')
+    failedMessage.textContent = '⚠️ Submission failed, but you may continue.'
+    failedMessage.className = 'visitor-warning'
+    document.body.appendChild(failedMessage)
+    setTimeout(() => failedMessage.remove(), 3000)
   }
+
+  // ✅ Proceed anyway
+  localStorage.setItem('visitorName', name.trim())
+  setSubmitted(true)
+
+  const confetti = document.createElement('div')
+  confetti.className = 'confetti'
+  document.body.appendChild(confetti)
+  setTimeout(() => confetti.remove(), 1000)
+
+  setTimeout(() => {
+    setShouldShowModal(false)
+  }, 2000)
+}
+
 
   return (
     <>

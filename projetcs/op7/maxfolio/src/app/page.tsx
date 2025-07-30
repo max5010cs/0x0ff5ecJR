@@ -1,3 +1,5 @@
+'use client'
+
 import VisitorModal from '@/components/VisitorModal'
 import Home from './Home'
 import Projects from './Projects'

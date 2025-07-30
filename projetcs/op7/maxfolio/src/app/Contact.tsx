@@ -1,5 +1,4 @@
 'use client'
-
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import './Contact.css'
@@ -198,7 +197,7 @@ export default function Contact() {
                 </div>
               ))}
 <div className="feedback-section">
-  <div style={{ height: '2rem' }} /> {/* spacing after command list */}
+  <div style={{ height: '2rem' }} /> 
 
   <p className="prompt comment">
     # You may also leave a message here. Feedback, bugs, or your contact info welcome.
@@ -237,4 +236,11 @@ export default function Contact() {
       </motion.div>
     </section>
   )
-}
+}                                                  
+
+
+
+
+
+
+

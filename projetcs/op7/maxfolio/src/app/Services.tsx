@@ -30,106 +30,122 @@ const services: Service[] = [
   title: ['Full-Stack Development'],
   titles: ['Full-Stack Developer', 'Next.js Engineer', 'MERN Architect'],
   icon: <Code size={36} />,
-  description: `I build fast, secure full-stack applications using tools like Next.js, Node.js, and Supabase.
-I’ve developed scalable apps that handle real-world use cases.
-From frontend polish to backend logic, I cover the entire stack.`,
+  description: 'I can develop complete scalable applications from frontend to backend.',
   details: {
-    howIHelp: 'I can develop complete scalable applications from frontend to backend.',
+    howIHelp: `I build fast, secure full-stack applications using tools like Next.js, Node.js, and Supabase.
+I’ve developed scalable apps that handle real-world use cases.
+From frontend polish to backend logic, I cover the entire stack.` ,
     tools: ['VS Code', 'Postman', 'ESLint', 'Prettier'],
     stack: ['React', 'Next.js', 'Node.js', 'Supabase', 'Tailwind', 'MongoDB', 'PostgreSQL'],
   }
 },
+
 {
   title: ['UI/UX Design'],
   titles: ['UI/UX Designer', 'Product Thinker', 'Figma Specialist'],
   icon: <PenTool size={36} />,
-  description: `I craft user-first interfaces with a sharp eye for detail and flow.
-From clean layouts to smooth interactions, I aim for both beauty and usability.
-Tools like Figma and Framer help bring ideas to life.`,
+  description: 'I design clean, intuitive user interfaces and seamless user flows.',
   details: {
-    howIHelp: 'I design clean, intuitive user interfaces and seamless user flows.',
+    howIHelp:`I craft user-first interfaces with a sharp eye for detail and flow.
+From clean layouts to smooth interactions, I aim for both beauty and usability.
+Tools like Figma and Framer help bring ideas to life.` ,
     tools: ['Figma', 'Framer', 'Adobe XD'],
     stack: ['CSS Flex/Grid', 'Tailwind', 'Framer Motion', 'Shadcn/UI'],
   }
 },
+
 {
   title: ['Cloud & Deployment'],
   titles: ['DevOps Engineer', 'Cloud Specialist', 'CI/CD Automator'],
   icon: <Rocket size={36} />,
-  description: `I set up seamless CI/CD pipelines, manage environments, and deploy to Vercel, Render, or VPS.
+  description:  'I can set up environments, optimize deployments, and scale apps.',
+  details: {
+    howIHelp:`I set up seamless CI/CD pipelines, manage environments, and deploy to Vercel, Render, or VPS.
 My stack ensures apps are not only live — but reliable, fast, and secure.
 I optimize deployments so you can ship confidently and iterate quickly.`,
-  details: {
-    howIHelp: 'I can set up environments, optimize deployments, and scale apps.',
     tools: ['Vercel', 'Render', 'Nginx', 'PM2'],
     stack: ['Docker', 'GitHub Actions', 'Linux CLI'],
   }
 },
+
 {
   title: ['Debugging & Maintenance'],
   titles: ['Bug Fixer', 'Code Refactorer', 'System Maintainer'],
   icon: <Wrench size={36} />,
-  description: `Fixing bugs is more than patching — it’s about improving reliability long term.
+  description: 'I provide long-term support, refactor bad code, and write docs.',
+  details: {
+    howIHelp: `Fixing bugs is more than patching — it’s about improving reliability long term.
 I dive deep into broken flows, clean up legacy code, and maintain system health.
 Whether it’s performance issues or messy logic, I fix it at the root.`,
-  details: {
-    howIHelp: 'I provide long-term support, refactor bad code, and write docs.',
     tools: ['Chrome DevTools', 'ESLint', 'Git'],
     stack: ['JS/TS', 'React', 'Next.js', 'Node.js'],
   }
 },
+
 {
   title: ['Custom Dashboards'],
   titles: ['Dashboard Builder', 'Analytics Engineer', 'Control Panel Designer'],
   icon: <Monitor size={36} />,
-  description: `I build admin panels and dashboards that turn complex data into clean visuals.
+  description: 'Custom visual dashboards for your KPIs and control systems.',
+  details: {
+    howIHelp:  `I build admin panels and dashboards that turn complex data into clean visuals.
 Everything is tailored — from analytics graphs to real-time user controls.
 I focus on clarity, responsiveness, and performance.`,
-  details: {
-    howIHelp: 'Custom visual dashboards for your KPIs and control systems.',
     tools: ['Chart.js', 'Recharts', 'Figma'],
     stack: ['React', 'Tailwind', 'Supabase'],
   }
 },
+
+
 {
   title: ['DevOps & Infra'],
   titles: ['Infrastructure Engineer', 'Linux Tuner', 'Workflow Automator'],
   icon: <Cloud size={36} />,
-  description: `I streamline dev workflows through Dockerization, automation, and custom server setups.
-From local environments to production pipelines, I cover the full lifecycle.
-My setups are optimized for performance, scalability, and clarity.`,
+  description:'I containerize apps, configure servers, and streamline workflows.',
   details: {
-    howIHelp: 'I containerize apps, configure servers, and streamline workflows.',
+    howIHelp: `I streamline dev workflows through Dockerization, automation, and custom server setups.
+From local environments to production pipelines, I cover the full lifecycle.
+My setups are optimized for performance, scalability, and clarity.` ,
     tools: ['Docker', 'NGINX', 'Linux'],
     stack: ['CLI', 'Shell scripting', 'CI/CD pipelines'],
   }
 },
+
+
 {
   title: ['Database Modeling'],
   titles: ['Database Designer', 'Schema Architect', 'Query Optimizer'],
   icon: <Database size={36} />,
-  description: `Databases should be structured, secure, and scalable — that’s my goal.
-I design schemas that evolve with your app and queries that run fast under pressure.
-Both SQL and NoSQL, with tools like Prisma and Supabase Studio.`,
+  description: 'I build optimized schemas, design relations, and write secure queries.',
   details: {
-    howIHelp: 'I build optimized schemas, design relations, and write secure queries.',
+    howIHelp: `Databases should be structured, secure, and scalable — that’s my goal.
+I design schemas that evolve with your app and queries that run fast under pressure.
+Both SQL and NoSQL, with tools like Prisma and Supabase Studio.` ,
     tools: ['Supabase Studio', 'Prisma', 'PgAdmin'],
     stack: ['PostgreSQL', 'MongoDB', 'Prisma'],
   }
 },
+
+
 {
   title: ['Backend Logic & APIs'],
   titles: ['API Architect', 'Middleware Engineer', 'Backend Flow Designer'],
   icon: <Shield size={36} />,
-  description: `I design solid backend logic — clean routes, auth flows, middlewares, and secure APIs.
+  description: `I design and implement scalable backend logic and robust API endpoints.`,
+  details: {
+    howIHelp: `I design solid backend logic — clean routes, auth flows, middlewares, and secure APIs.
 From building REST endpoints to handling complex business rules — I do it all.
 My logic is readable, modular, and always built with scaling in mind.`,
-  details: {
-    howIHelp: 'I design and implement scalable backend logic and robust API endpoints.',
     tools: ['Express', 'Next.js API Routes', 'Zod'],
     stack: ['Node.js', 'REST', 'Middleware', 'Rate limiting'],
   }
 }
+
+
+
+
+
+
 
 ];
 

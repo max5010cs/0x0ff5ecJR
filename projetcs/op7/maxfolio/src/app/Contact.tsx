@@ -203,7 +203,7 @@ export default function Contact() {
     # You may also leave a message here. Feedback, bugs, or your contact info welcome.
   </p>
   <div className="terminal-line">
-    <span className="prefix">{`${typeof window !== 'undefined' ? localStorage.getItem('username') || 'guest' : 'guest'}@portfolio:~$`}</span>
+    <span className="prefix">{`${typeof window !== 'undefined' ? localStorage.getItem('visitorName') || 'guest' : 'guest'}@message:~$`}</span>
     <input
       type="text"
       value={message}

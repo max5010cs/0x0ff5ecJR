@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import Image from 'next/image'
 import './VisitorModal.css'
 
 export default function VisitorModal() {
@@ -97,13 +98,14 @@ const handleSubmit = async () => {
         >
           {!submitted ? (
             <>
-              <img
-                src="/avatar.png"
-                alt="Avatar"
-                className="visitor-avatar"
-                width={60}
-                height={60}
-              />
+ <Image
+  src="/avatar.png"
+  alt="Avatar"
+  className="visitor-avatar"
+  width={60}
+  height={60}
+/>
+
               <h2>Who’s visiting?</h2>
               <input
                 type="text"

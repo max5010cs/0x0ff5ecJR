@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import ParticlesBackground from '../components/ParticlesBackground'
+import Image from 'next/image'
 import './Projects.css'
 
 const NUM_ROWS = 3
@@ -138,59 +139,74 @@ export default function ProjectsScroller() {
     return () => window.removeEventListener('keydown', handleEsc)
   }, [])
 
+// Calculate transforms before return
+const transforms = Array.from({ length: NUM_ROWS }).map((_, rowIndex) => {
+  const isEven = rowIndex % 2 === 0
+  return useTransform(scrollYProgress, [0, 1], isEven ? ['0%', '-25%'] : ['-25%', '0%'])
+})
+
+return (
+  <section id="projects" className="projects-scroll-section" ref={sectionRef}>
+    <div className="particles-wrapper">
+      <div className="gradient-bg" />
+      <ParticlesBackground />
+    </div>
+
+    {/* 🔁 Project Rows */}
+
+    {Array.from({ length: NUM_ROWS }).map((_, rowIndex) => {
+      const x = transforms[rowIndex]
+
+  const isEven = rowIndex % 2 === 0
+  const start = rowIndex * CARDS_PER_ROW
+  const end = start + CARDS_PER_ROW
+  const rowProjects = originalProjects.slice(start, end).concat(originalProjects.slice(start, end))
+
   return (
-    <section id="projects" className="projects-scroll-section" ref={sectionRef}>
-      <div className="particles-wrapper">
-        <div className="gradient-bg" />
-        <ParticlesBackground />
-      </div>
+    <div className="project-row-container" key={`container-${rowIndex}`}>
+      <motion.div
+        className="project-row infinite"
+        style={{ x }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 1.5, ease: 'easeInOut', delay: rowIndex * 0.15 }}
+      >
+        {rowProjects.map((project, cardIndex) => (
+          <motion.div
+            className="project-card"
+            key={`${rowIndex}-${cardIndex}`}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: cardIndex * 0.1 }}
+            viewport={{ once: true, margin: '-100px' }}
+            onClick={() => setSelectedProject(project)}
+            tabIndex={0}
+          >
+            <div className="project-img-wrapper">
+              <Image
+                src={project.image}
+                alt={project.title}
+                width={400}
+                height={250}
+                className="project-img"
+                unoptimized 
+              />
+            </div>
+            <div className="project-meta">
+              <h3 className="project-title">{project.title}</h3>
+              <div className="tech-badges">
+                {project.techStack.map((tech, idx) => (
+                  <span key={idx} className="tech-badge">{tech}</span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
+  )
+})}
 
-      {/* 🔁 Project Rows */}
-      {Array.from({ length: NUM_ROWS }).map((_, rowIndex) => {
-        const isEven = rowIndex % 2 === 0
-        const x = useTransform(scrollYProgress, [0, 1], isEven ? ['0%', '-25%'] : ['-25%', '0%'])
-
-        const start = rowIndex * CARDS_PER_ROW
-        const end = start + CARDS_PER_ROW
-        const rowProjects = originalProjects.slice(start, end).concat(originalProjects.slice(start, end))
-
-        return (
-          <div className="project-row-container" key={`container-${rowIndex}`}>
-            <motion.div
-              className="project-row infinite"
-              style={{ x }}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1.5, ease: 'easeInOut', delay: rowIndex * 0.15 }}
-            >
-              {rowProjects.map((project, cardIndex) => (
-                <motion.div
-                  className="project-card"
-                  key={`${rowIndex}-${cardIndex}`}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: cardIndex * 0.1 }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  onClick={() => setSelectedProject(project)}
-                  tabIndex={0}
-                >
-                  <div className="project-img-wrapper">
-                    <img src={project.image} alt={project.title} className="project-img" />
-                  </div>
-                  <div className="project-meta">
-                    <h3 className="project-title">{project.title}</h3>
-                    <div className="tech-badges">
-                      {project.techStack.map((tech, idx) => (
-                        <span key={idx} className="tech-badge">{tech}</span>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        )
-      })}
 
       {/* 🔍 Modal */}
       <AnimatePresence>

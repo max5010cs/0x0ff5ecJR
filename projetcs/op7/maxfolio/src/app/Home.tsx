@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import './Home.css'
 
 export default function Home() {
@@ -46,7 +47,15 @@ export default function Home() {
           transition={{ duration: 0.9 }}
           viewport={{ once: true }}
         >
-          <img src="/try.jpg" alt="Max avatar" className="hero-img" />
+          <Image
+  src="/try.jpg"
+  alt="Max avatar"
+  className="hero-img"
+  width={400}
+  height={400}
+  priority
+/>
+
         </motion.div>
 
         {/* Right: Text content */}

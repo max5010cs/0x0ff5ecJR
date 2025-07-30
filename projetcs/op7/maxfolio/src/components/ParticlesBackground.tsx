@@ -3,12 +3,12 @@
 import { useCallback, useEffect, useState } from 'react'
 import Particles from 'react-tsparticles'
 import { loadSlim } from 'tsparticles-slim'
-import type { ISourceOptions } from 'tsparticles-engine'
+import type { ISourceOptions, Engine } from 'tsparticles-engine'
 
 export default function ParticlesBackground() {
   const [options, setOptions] = useState<ISourceOptions | null>(null)
 
-  const particlesInit = useCallback(async (engine: any) => {
+  const particlesInit = useCallback(async (engine: Engine) => {
     await loadSlim(engine)
   }, [])
 

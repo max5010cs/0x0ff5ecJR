@@ -1,82 +1,112 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Services.css';
 import {
   Code, PenTool, Rocket, Wrench, Monitor,
-  Cloud, Database, Shield, Globe, Layers
+  Cloud, Database, Shield
 } from 'lucide-react';
 
-const services = [
+// ✅ Define the structure of a service object
+type Service = {
+  title: string;
+  icon: React.ReactElement;
+  description: string;
+  details: {
+    howIHelp: string;
+    tools: string[];
+    stack: string[];
+  };
+};
+
+// ✅ Services array with full typings
+const services: Service[] = [
   {
     title: 'Full-Stack Development',
     icon: <Code size={36} />,
-    description: 'Building fast, scalable, and secure web apps using modern stacks like React, Next.js, Node.js, and Supabase.'
+    description: 'Fast, secure full-stack apps using React, Next.js, Node.js, Supabase.',
+    details: {
+      howIHelp: 'I can develop complete scalable applications from frontend to backend.',
+      tools: ['VS Code', 'Postman', 'ESLint', 'Prettier'],
+      stack: ['React', 'Next.js', 'Node.js', 'Supabase', 'Tailwind', 'MongoDB', 'PostgreSQL'],
+    }
   },
   {
     title: 'UI/UX Design',
     icon: <PenTool size={36} />,
-    description: 'Creating intuitive, user-centric interfaces with Figma and CSS magic to ensure beautiful design across devices.'
+    description: 'User-first designs with Figma and CSS that look & feel great.',
+    details: {
+      howIHelp: 'I design clean, intuitive user interfaces and seamless user flows.',
+      tools: ['Figma', 'Framer', 'Adobe XD'],
+      stack: ['CSS Flex/Grid', 'Tailwind', 'Framer Motion', 'Shadcn/UI'],
+    }
   },
   {
     title: 'Cloud & Deployment',
     icon: <Rocket size={36} />,
-    description: 'From CI/CD pipelines to cloud architecture, I deploy and scale your app using Vercel, Render, or custom infra.'
+    description: 'CI/CD, cloud infra, and smooth deploys via Vercel, Render or VPS.',
+    details: {
+      howIHelp: 'I can set up environments, optimize deployments, and scale apps.',
+      tools: ['Vercel', 'Render', 'Nginx', 'PM2'],
+      stack: ['Docker', 'GitHub Actions', 'Linux CLI'],
+    }
   },
   {
     title: 'Debugging & Maintenance',
     icon: <Wrench size={36} />,
-    description: 'I offer long-term support and debugging services with clear communication and solid documentation.'
+    description: 'Fixing bugs, performance issues, and keeping systems healthy.',
+    details: {
+      howIHelp: 'I provide long-term support, refactor bad code, and write docs.',
+      tools: ['Chrome DevTools', 'ESLint', 'Git'],
+      stack: ['JS/TS', 'React', 'Next.js', 'Node.js'],
+    }
   },
   {
     title: 'Custom Dashboards',
     icon: <Monitor size={36} />,
-    description: 'Crafting powerful admin panels and analytics dashboards tailored to your business logic and KPIs.'
+    description: 'Building powerful admin panels and analytic dashboards.',
+    details: {
+      howIHelp: 'Custom visual dashboards for your KPIs and control systems.',
+      tools: ['Chart.js', 'Recharts', 'Figma'],
+      stack: ['React', 'Tailwind', 'Supabase'],
+    }
   },
   {
     title: 'DevOps & Infra',
     icon: <Cloud size={36} />,
-    description: 'Docker, NGINX, cloud compute, and automated deployments – let’s keep your stack smooth and modern.'
+    description: 'Automation, infra setup, and system-level optimizations.',
+    details: {
+      howIHelp: 'I containerize apps, configure servers, and streamline workflows.',
+      tools: ['Docker', 'NGINX', 'Linux'],
+      stack: ['CLI', 'Shell scripting', 'CI/CD pipelines'],
+    }
   },
   {
     title: 'Database Modeling',
     icon: <Database size={36} />,
-    description: 'Designing performant relational/NoSQL schemas with Supabase, PostgreSQL, MongoDB, and Prisma.'
+    description: 'Designing performant schemas for SQL & NoSQL databases.',
+    details: {
+      howIHelp: 'I build optimized schemas, design relations, and write secure queries.',
+      tools: ['Supabase Studio', 'Prisma', 'PgAdmin'],
+      stack: ['PostgreSQL', 'MongoDB', 'Prisma'],
+    }
   },
   {
     title: 'App Security',
     icon: <Shield size={36} />,
-    description: 'Implementing authentication, rate limiting, encryption, and best practices to protect your users and data.'
-  },
-  {
-    title: 'API Integrations',
-    icon: <Globe size={36} />,
-    description: 'Whether Stripe, Telegram, OpenAI or custom services — I connect your app to the world.'
-  },
-  {
-    title: 'Component Libraries',
-    icon: <Layers size={36} />,
-    description: 'Reusable React components with shadcn/ui, Framer Motion, and Lucide make your codebase elegant.'
-  },
-
-    {
-    title: 'Component Libraries',
-    icon: <Layers size={36} />,
-    description: 'Reusable React components with shadcn/ui, Framer Motion, and Lucide make your codebase elegant.'
-  },
-
-    {
-    title: 'Component Libraries',
-    icon: <Layers size={36} />,
-    description: 'Reusable React components with shadcn/ui, Framer Motion, and Lucide make your codebase elegant.'
+    description: 'Protecting your apps with strong auth and secure best practices.',
+    details: {
+      howIHelp: 'I implement auth flows, encryption, and input sanitization.',
+      tools: ['JWT', 'Bcrypt', 'Helmet.js'],
+      stack: ['NextAuth.js', 'OAuth', 'Rate limiting'],
+    }
   }
-
-
 ];
 
 export default function Services() {
   const [mounted, setMounted] = useState(false);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -86,16 +116,11 @@ export default function Services() {
 
   return (
     <section id="services" className="services-section">
-
-
-
-      {/* 🌌 Background Effects */}
-  <div className="border-line top" />
-  <div className="gradient-ring top-left" />
-  <div className="gradient-ring bottom-right" />
-  <div className="aurora-streak" />
-
-
+      {/* Background Effects */}
+      <div className="border-line top" />
+      <div className="gradient-ring top-left" />
+      <div className="gradient-ring bottom-right" />
+      <div className="aurora-streak" />
 
       <motion.div
         className="services-header"
@@ -113,12 +138,13 @@ export default function Services() {
           <motion.div
             key={idx}
             className="service-card"
+            onClick={() => setSelectedService(service)}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: idx * 0.05 }}
             viewport={{ once: true }}
             whileHover={{ rotateX: 4, rotateY: -4 }}
-            style={{ perspective: '1000px' }}
+            style={{ perspective: '1000px', cursor: 'pointer' }}
           >
             <div className="service-icon">{service.icon}</div>
             <h3 className="service-heading">{service.title}</h3>
@@ -127,11 +153,54 @@ export default function Services() {
         ))}
       </div>
 
+      {/* Pop-up Modal */}
+      <AnimatePresence>
+        {selectedService && (
+          <motion.div
+            className="modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedService(null)}
+          >
+            <motion.div
+              className="modal-content"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <h3>{selectedService.title}</h3>
+              <p className="modal-description">{selectedService.details.howIHelp}</p>
 
+              <div className="modal-tags">
+                <strong>Tools:</strong>
+                <ul>
+                  {selectedService.details.tools.map((tool) => (
+                    <li key={tool}>{tool}</li>
+                  ))}
+                </ul>
+              </div>
 
-  <div className="border-line bottom" />
+              <div className="modal-tags">
+                <strong>Stack:</strong>
+                <ul>
+                  {selectedService.details.stack.map((tech) => (
+                    <li key={tech}>{tech}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <button onClick={() => setSelectedService(null)} className="modal-close">
+                Close
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="border-line bottom" />
     </section>
   );
 }
-
-

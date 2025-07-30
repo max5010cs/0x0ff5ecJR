@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ReactTyped } from 'react-typed';
 import './Services.css';
 import {
   Code, PenTool, Rocket, Wrench, Monitor,
@@ -10,7 +11,7 @@ import {
 
 // ✅ Define the structure of a service object
 type Service = {
-  title: string;
+  titles: string[];
   icon: React.ReactElement;
   description: string;
   details: {
@@ -20,10 +21,12 @@ type Service = {
   };
 };
 
+
 // ✅ Services array with full typings
+
 const services: Service[] = [
   {
-    title: 'Full-Stack Development',
+    titles: ['Full-Stack Developer', 'Next.js Engineer', 'MERN Architect'],
     icon: <Code size={36} />,
     description: 'Fast, secure full-stack apps using React, Next.js, Node.js, Supabase.',
     details: {
@@ -33,7 +36,7 @@ const services: Service[] = [
     }
   },
   {
-    title: 'UI/UX Design',
+    titles: ['UI/UX Designer', 'Product Thinker', 'Figma Specialist'],
     icon: <PenTool size={36} />,
     description: 'User-first designs with Figma and CSS that look & feel great.',
     details: {
@@ -43,7 +46,7 @@ const services: Service[] = [
     }
   },
   {
-    title: 'Cloud & Deployment',
+    titles: ['DevOps Engineer', 'Cloud Specialist', 'CI/CD Automator'],
     icon: <Rocket size={36} />,
     description: 'CI/CD, cloud infra, and smooth deploys via Vercel, Render or VPS.',
     details: {
@@ -53,7 +56,7 @@ const services: Service[] = [
     }
   },
   {
-    title: 'Debugging & Maintenance',
+    titles: ['Bug Fixer', 'Code Refactorer', 'System Maintainer'],
     icon: <Wrench size={36} />,
     description: 'Fixing bugs, performance issues, and keeping systems healthy.',
     details: {
@@ -63,7 +66,7 @@ const services: Service[] = [
     }
   },
   {
-    title: 'Custom Dashboards',
+    titles: ['Dashboard Builder', 'Analytics Engineer', 'Control Panel Designer'],
     icon: <Monitor size={36} />,
     description: 'Building powerful admin panels and analytic dashboards.',
     details: {
@@ -73,7 +76,7 @@ const services: Service[] = [
     }
   },
   {
-    title: 'DevOps & Infra',
+    titles: ['Infrastructure Engineer', 'Linux Tuner', 'Workflow Automator'],
     icon: <Cloud size={36} />,
     description: 'Automation, infra setup, and system-level optimizations.',
     details: {
@@ -83,7 +86,7 @@ const services: Service[] = [
     }
   },
   {
-    title: 'Database Modeling',
+    titles: ['Database Designer', 'Schema Architect', 'Query Optimizer'],
     icon: <Database size={36} />,
     description: 'Designing performant schemas for SQL & NoSQL databases.',
     details: {
@@ -93,7 +96,7 @@ const services: Service[] = [
     }
   },
   {
-    title: 'App Security',
+    titles: ['App Security Expert', 'Auth Engineer', 'Secure Code Enforcer'],
     icon: <Shield size={36} />,
     description: 'Protecting your apps with strong auth and secure best practices.',
     details: {
@@ -130,7 +133,7 @@ export default function Services() {
         viewport={{ once: true }}
       >
         <h2 className="services-title">SERVICES</h2>
-        <p className="services-subtitle">Here’s what I can build, break, or scale for you:</p>
+        <p className="services-subtitle">Here’s what I can build, fix, or scale for you:</p>
       </motion.div>
 
       <div className="services-grid">
@@ -147,7 +150,7 @@ export default function Services() {
             style={{ perspective: '1000px', cursor: 'pointer' }}
           >
             <div className="service-icon">{service.icon}</div>
-            <h3 className="service-heading">{service.title}</h3>
+            <h3 className="service-heading">{service.titles}</h3>
             <p className="service-description">{service.description}</p>
           </motion.div>
         ))}
@@ -171,9 +174,33 @@ export default function Services() {
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <h3>{selectedService.title}</h3>
-              <p className="modal-description">{selectedService.details.howIHelp}</p>
+              { /*<h3>{selectedService.titles}</h3>
+              <p className="modal-description">{selectedService.details.howIHelp}</p>  */ }
+              {/* Animated Typed Title */}
+<motion.h3
+  className="typed-title"
+  initial={{ opacity: 0, y: -10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.6 }}
+>
+  <ReactTyped
+    strings={selectedService.titles}
+    typeSpeed={50}
+    backSpeed={30}
+    loop
+  />
+</motion.h3>
 
+{/* Description with subtle animation */}
+<motion.p
+  className="modal-description enhanced-description"
+  initial={{ opacity: 0, x: -10 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ delay: 0.3, duration: 0.5 }}
+>
+  {selectedService.details.howIHelp}
+</motion.p>
+     {/*
               <div className="modal-tags">
                 <strong>Tools:</strong>
                 <ul>
@@ -190,7 +217,44 @@ export default function Services() {
                     <li key={tech}>{tech}</li>
                   ))}
                 </ul>
-              </div>
+              </div>    */}
+
+
+
+
+
+              {/* Tools badges */}
+<div className="badge-section">
+  <strong>Tools:</strong>
+  <div className="badge-container">
+    {selectedService.details.tools.map((tool) => (
+      <motion.span
+        key={tool}
+        className="badge tool-badge"
+        whileHover={{ scale: 1.1 }}
+      >
+        {tool}
+      </motion.span>
+    ))}
+  </div>
+</div>
+
+{/* Stack badges */}
+<div className="badge-section">
+  <strong>Stack:</strong>
+  <div className="badge-container">
+    {selectedService.details.stack.map((tech) => (
+      <motion.span
+        key={tech}
+        className="badge stack-badge"
+        whileHover={{ scale: 1.1 }}
+      >
+        {tech}
+      </motion.span>
+    ))}
+  </div>
+</div>
+
 
               <button onClick={() => setSelectedService(null)} className="modal-close">
                 Close

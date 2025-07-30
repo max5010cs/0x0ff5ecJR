@@ -98,13 +98,13 @@ const handleSubmit = async () => {
         >
           {!submitted ? (
             <>
- <Image
-  src="/avatar.png"
-  alt="Avatar"
-  className="visitor-avatar"
-  width={60}
-  height={60}
-/>
+              <Image
+                src="/avatar.png"
+                alt="Avatar"
+                className="visitor-avatar"
+                width={60}
+                height={60}
+            />
 
               <h2>Who’s visiting?</h2>
               <input

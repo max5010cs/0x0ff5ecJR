@@ -1,9 +1,199 @@
-.contact {
-  background: #f0f0f0;
-  color: #111;
+/* Main Section */
+.section.contact {
+  background: radial-gradient(ellipse at center, #0d0d0d 0%, #000000 100%);
+  padding: 0;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
+  font-family: 'Courier New', monospace;
+  color: #00ffcc;
+  position: relative;
+  overflow: hidden;
+  z-index: 0; 
+}
+
+.section.contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(3, 49, 28, 0.623) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: gridScroll 30s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes gridScroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 1000px 1000px; }
+}
+
+.section.contact.light::before {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+
+/* Terminal Card */
+.contact-terminal.large {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  min-height: 560px;
+  background: rgba(15, 15, 15, 0.85);
+  border: 1px solid #00ff88;
+  border-radius: 20px;
+  box-shadow:
+    0 0 20px rgba(0, 255, 136, 0.3),
+    0 0 40px rgba(0, 255, 136, 0.2),
+    inset 0 0 10px rgba(0, 255, 136, 0.1);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 2;
+  margin: auto;
+}
+
+/* Header (traffic light) */
+.terminal-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: linear-gradient(to right, #111, #1a1a1a);
+  border-bottom: 1px solid #00ff88;
+  box-shadow: 0 2px 6px rgba(0, 255, 136, 0.1);
+}
+
+/* Traffic Dots */
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+}
+.red    { background: #ff5f56; box-shadow: 0 0 8px #ff5f56; }
+.yellow { background: #ffbd2e; box-shadow: 0 0 8px #ffbd2e; }
+.green  { background: #27c93f; box-shadow: 0 0 8px #27c93f; }
+
+/* Title */
+.terminal-title {
+  margin-left: auto;
+  color: #00ff88;
+  font-weight: bold;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 6px #00ff88;
+}
+
+/* Terminal Scrollable Body */
+.terminal-body {
+  padding: 2rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #00ff88 #0d0d0d;
+}
+
+/* Chrome Scrollbar */
+.terminal-body::-webkit-scrollbar {
+  width: 6px;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background-color: #00ff88;
+  border-radius: 4px;
+}
+
+/* Prompt and Input Lines */
+.prompt {
+  color: #00ff88;
+  font-weight: bold;
+}
+
+/* Command Line Options */
+.command-line {
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #00ffcc;
+  position: relative;
+}
+.command-line:hover {
+  color: #ffffff;
+  text-shadow:
+    0 0 5px #00ffcc,
+    0 0 10px #00ffcc,
+    0 0 20px #00ffcc;
+}
+.command-line::before {
+  content: '';
+  position: absolute;
+  left: -1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: #00ffcc;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+/* Log Section */
+.log-section {
+  margin-top: 1rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Each Log Line */
+.log-line {
+  margin: 0.4rem 0;
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  opacity: 0;
+  animation: fadeInLog 0.6s ease forwards;
+}
+@keyframes fadeInLog {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+}
+
+/* Blinking Cursor */
+.cursor {
+  display: inline-block;
+  width: 10px;
+  background: #00ffcc;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Fade In General */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+
+.section.contact::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 20px;
+  background: linear-gradient(to bottom, transparent, #000);
+  pointer-events: none;
+  z-index: 2;
 }

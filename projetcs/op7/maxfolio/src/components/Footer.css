@@ -1,16 +1,30 @@
-/* components/Footer.css */
-
-.footer {
-  background-color: var(--bg); /* Matches body background */
+footer {
+  position: relative;
+  background-color: black; 
   padding: 2rem;
   text-align: center;
-  border-top: 1px solid var(--subtle);
-  margin-top: 4rem;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  color: rgba(255, 255, 255, 0.212);
+  width: 100%;
 }
 
-.footer-text {
-  font-size: 0.95rem;
-  color: var(--subtle);
-  transition: color 0.3s ease;
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    #00ffea,
+    #ff00c8,
+    #00ffea
+  );
+  background-size: 200% 100%;
+  animation: moveLine 3s linear infinite;
+}
+
+@keyframes moveLine {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
 }

@@ -62,7 +62,7 @@ const handleSubmit = async () => {
 
     // Optional: show a friendly warning in the UI
     const failedMessage = document.createElement('div')
-    failedMessage.textContent = '⚠️ Submission failed, but you may continue.'
+    failedMessage.textContent = 'Thanks. You may continue!'
     failedMessage.className = 'visitor-warning'
     document.body.appendChild(failedMessage)
     setTimeout(() => failedMessage.remove(), 3000)

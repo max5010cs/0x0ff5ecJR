@@ -156,8 +156,6 @@ return (
 
     {Array.from({ length: NUM_ROWS }).map((_, rowIndex) => {
       const x = transforms[rowIndex]
-
-  const isEven = rowIndex % 2 === 0
   const start = rowIndex * CARDS_PER_ROW
   const end = start + CARDS_PER_ROW
   const rowProjects = originalProjects.slice(start, end).concat(originalProjects.slice(start, end))
@@ -228,7 +226,15 @@ return (
             >
               <div className="modal-content">
                 <div className="modal-left">
-                  <img src={selectedProject.image} alt={selectedProject.title} className="modal-img" />
+                 <Image
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  width={600}
+                  height={350}
+                  className="modal-img"
+                  unoptimized
+                   />
+
                 </div>
                 <div className="modal-right">
                   <h2 className="modal-title">{selectedProject.title}</h2>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useEffect, useMemo } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, MotionValue, useTransform, AnimatePresence } from 'framer-motion'
 import ParticlesBackground from '../components/ParticlesBackground'
 import Image from 'next/image'
@@ -125,23 +125,16 @@ const realProjects: Project[] = [
 
 const originalProjects = realProjects
 
-// Custom hook to calculate transforms for each row
-function useRowTransforms(scrollYProgress: MotionValue<number>, numRows: number) {
-  return useMemo(() => {
-    return Array.from({ length: numRows }).map((_, rowIndex) =>
-      useTransform(
-        scrollYProgress,
-        [0, 1],
-        rowIndex % 2 === 0 ? ['0%', '-25%'] : ['-25%', '0%']
-      )
-    )
-  }, [scrollYProgress, numRows])
-}
-
 export default function ProjectsScroller() {
   const sectionRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+
+  // Call useTransform a fixed number of times
+  const x0 = useTransform(scrollYProgress, [0, 1], ['0%', '-25%'])
+  const x1 = useTransform(scrollYProgress, [0, 1], ['-25%', '0%'])
+  const x2 = useTransform(scrollYProgress, [0, 1], ['0%', '-25%'])
+  const transforms = [x0, x1, x2]
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -150,9 +143,6 @@ export default function ProjectsScroller() {
     window.addEventListener('keydown', handleEsc)
     return () => window.removeEventListener('keydown', handleEsc)
   }, [])
-
-  // ✅ Use the custom hook for transforms
-  const transforms = useRowTransforms(scrollYProgress, NUM_ROWS)
 
   return (
     <section id="projects" className="projects-scroll-section" ref={sectionRef}>

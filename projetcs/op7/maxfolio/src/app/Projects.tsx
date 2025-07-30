@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, MotionValue, useTransform, AnimatePresence } from 'framer-motion'
 import ParticlesBackground from '../components/ParticlesBackground'
 import Image from 'next/image'
 import './Projects.css'
@@ -126,14 +126,18 @@ const realProjects: Project[] = [
 const originalProjects = realProjects
 
 // Custom hook to calculate transforms for each row
-function useRowTransforms(scrollYProgress: any, numRows: number) {
-  return Array.from({ length: numRows }).map((_, rowIndex) =>
-    useTransform(
-      scrollYProgress,
-      [0, 1],
-      rowIndex % 2 === 0 ? ['0%', '-25%'] : ['-25%', '0%']
+function useRowTransforms(scrollYProgress: MotionValue<number>, numRows: number) {
+  const transforms: MotionValue<string>[] = []
+  for (let rowIndex = 0; rowIndex < numRows; rowIndex++) {
+    transforms.push(
+      useTransform(
+        scrollYProgress,
+        [0, 1],
+        rowIndex % 2 === 0 ? ['0%', '-25%'] : ['-25%', '0%']
+      )
     )
-  )
+  }
+  return transforms
 }
 
 export default function ProjectsScroller() {

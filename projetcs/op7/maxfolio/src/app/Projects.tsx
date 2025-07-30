@@ -125,6 +125,16 @@ const realProjects: Project[] = [
 
 const originalProjects = realProjects
 
+// Custom hook to calculate transforms for each row
+function useRowTransforms(scrollYProgress: any, numRows: number) {
+  return Array.from({ length: numRows }).map((_, rowIndex) =>
+    useTransform(
+      scrollYProgress,
+      [0, 1],
+      rowIndex % 2 === 0 ? ['0%', '-25%'] : ['-25%', '0%']
+    )
+  )
+}
 
 export default function ProjectsScroller() {
   const sectionRef = useRef(null)
@@ -139,72 +149,67 @@ export default function ProjectsScroller() {
     return () => window.removeEventListener('keydown', handleEsc)
   }, [])
 
-// Calculate transforms before return
-const transforms = Array.from({ length: NUM_ROWS }).map((_, rowIndex) => {
-  const isEven = rowIndex % 2 === 0
-  return useTransform(scrollYProgress, [0, 1], isEven ? ['0%', '-25%'] : ['-25%', '0%'])
-})
-
-return (
-  <section id="projects" className="projects-scroll-section" ref={sectionRef}>
-    <div className="particles-wrapper">
-      <div className="gradient-bg" />
-      <ParticlesBackground />
-    </div>
-
-    {/* 🔁 Project Rows */}
-
-    {Array.from({ length: NUM_ROWS }).map((_, rowIndex) => {
-      const x = transforms[rowIndex]
-  const start = rowIndex * CARDS_PER_ROW
-  const end = start + CARDS_PER_ROW
-  const rowProjects = originalProjects.slice(start, end).concat(originalProjects.slice(start, end))
+  // ✅ Use the custom hook for transforms
+  const transforms = useRowTransforms(scrollYProgress, NUM_ROWS)
 
   return (
-    <div className="project-row-container" key={`container-${rowIndex}`}>
-      <motion.div
-        className="project-row infinite"
-        style={{ x }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1.5, ease: 'easeInOut', delay: rowIndex * 0.15 }}
-      >
-        {rowProjects.map((project, cardIndex) => (
-          <motion.div
-            className="project-card"
-            key={`${rowIndex}-${cardIndex}`}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: cardIndex * 0.1 }}
-            viewport={{ once: true, margin: '-100px' }}
-            onClick={() => setSelectedProject(project)}
-            tabIndex={0}
-          >
-            <div className="project-img-wrapper">
-              <Image
-                src={project.image}
-                alt={project.title}
-                width={400}
-                height={250}
-                className="project-img"
-                unoptimized 
-              />
-            </div>
-            <div className="project-meta">
-              <h3 className="project-title">{project.title}</h3>
-              <div className="tech-badges">
-                {project.techStack.map((tech, idx) => (
-                  <span key={idx} className="tech-badge">{tech}</span>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </div>
-  )
-})}
+    <section id="projects" className="projects-scroll-section" ref={sectionRef}>
+      <div className="particles-wrapper">
+        <div className="gradient-bg" />
+        <ParticlesBackground />
+      </div>
 
+      {/* 🔁 Project Rows */}
+      {Array.from({ length: NUM_ROWS }).map((_, rowIndex) => {
+        const x = transforms[rowIndex]
+        const start = rowIndex * CARDS_PER_ROW
+        const end = start + CARDS_PER_ROW
+        const rowProjects = originalProjects.slice(start, end).concat(originalProjects.slice(start, end))
+
+        return (
+          <div className="project-row-container" key={`container-${rowIndex}`}>
+            <motion.div
+              className="project-row infinite"
+              style={{ x }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 1.5, ease: 'easeInOut', delay: rowIndex * 0.15 }}
+            >
+              {rowProjects.map((project, cardIndex) => (
+                <motion.div
+                  className="project-card"
+                  key={`${rowIndex}-${cardIndex}`}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: cardIndex * 0.1 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  onClick={() => setSelectedProject(project)}
+                  tabIndex={0}
+                >
+                  <div className="project-img-wrapper">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      width={400}
+                      height={250}
+                      className="project-img"
+                      unoptimized
+                    />
+                  </div>
+                  <div className="project-meta">
+                    <h3 className="project-title">{project.title}</h3>
+                    <div className="tech-badges">
+                      {project.techStack.map((tech, idx) => (
+                        <span key={idx} className="tech-badge">{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        )
+      })}
 
       {/* 🔍 Modal */}
       <AnimatePresence>
@@ -226,15 +231,14 @@ return (
             >
               <div className="modal-content">
                 <div className="modal-left">
-                 <Image
-                  src={selectedProject.image}
-                  alt={selectedProject.title}
-                  width={600}
-                  height={350}
-                  className="modal-img"
-                  unoptimized
-                   />
-
+                  <Image
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    width={600}
+                    height={350}
+                    className="modal-img"
+                    unoptimized
+                  />
                 </div>
                 <div className="modal-right">
                   <h2 className="modal-title">{selectedProject.title}</h2>

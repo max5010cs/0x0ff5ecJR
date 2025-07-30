@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import './Contact.css'
 
@@ -69,7 +69,7 @@ export default function Contact() {
   const [logs, setLogs] = useState<string[]>([])
   const [currentLine, setCurrentLine] = useState('')
   const [processing, setProcessing] = useState(false)
-  const [selectedUrl, setSelectedUrl] = useState('')
+  const [, setSelectedUrl] = useState('')
   const [message, setMessage] = useState('')
   const [sending, setSending] = useState(false)
 
@@ -96,7 +96,7 @@ export default function Contact() {
     setProcessing(true)
     setSelectedUrl(url)
 
-    for (let log of allLogs) {
+    for (const log of allLogs) {
       const speedType = Math.random()
       if (speedType < 0.2) {
         setLogs((prev) => [...prev, log])
@@ -142,7 +142,7 @@ export default function Contact() {
       '[OK] Sending message...',
     ]
 
-    for (let log of logLines) {
+    for (const log of logLines) {
       await typeLine(log, 10 + Math.random() * 30)
       await sleep(60)
     }
@@ -158,7 +158,7 @@ export default function Contact() {
         }),
       })
       await typeLine('[OK] Message successfully sent!')
-    } catch (err) {
+    } catch {
       await typeLine('[ERR] Failed to send message.')
     }
 

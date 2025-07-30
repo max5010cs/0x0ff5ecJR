@@ -197,3 +197,102 @@
   pointer-events: none;
   z-index: 2;
 }
+
+
+
+/* leave a message */
+
+
+.terminal-input {
+  background: transparent;
+  color: #00ff88;
+  border: 1px solid #00ff88;
+  padding: 0.5rem;
+  width: 100%;
+  font-family: monospace;
+  resize: none;
+  margin-top: 0.5rem;
+}
+
+.send-btn {
+  float: right;
+  margin-top: 0.5rem;
+  padding: 0.3rem 1rem;
+  background: #00ff88;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.send-btn:hover {
+  background: #00cc66;
+}
+
+
+.feedback-section {
+  margin-top: 2rem;
+}
+
+.prompt.comment {
+  color: #888;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.terminal-line {
+  display: flex;
+  align-items: center;
+  font-family: monospace;
+  font-size: 1rem;
+  color: #00ff88;
+}
+
+.terminal-line .prefix {
+  margin-right: 0.5rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cli-input {
+  background: transparent;
+  border: none;
+  color: #00ff88;
+  outline: none;
+  flex-grow: 1;
+  font-family: inherit;
+  font-size: inherit;
+  caret-color: #00ff88;
+}
+
+.cli-input::placeholder {
+  color: #444;
+  font-style: italic;
+}
+
+
+.cli-textarea {
+  background: transparent;
+  color: inherit;
+  font-family: monospace;
+  border: none;
+  outline: none;
+  width: 100%;
+  line-height: 1.4;
+  caret-color: transparent;
+  padding: 0;
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-y: hidden;
+}
+
+.cursor {
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

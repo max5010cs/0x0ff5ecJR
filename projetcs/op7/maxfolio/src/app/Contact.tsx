@@ -71,6 +71,8 @@ export default function Contact() {
   const [currentLine, setCurrentLine] = useState('')
   const [processing, setProcessing] = useState(false)
   const [selectedUrl, setSelectedUrl] = useState('')
+  const [message, setMessage] = useState('')
+  const [sending, setSending] = useState(false)
 
   const typeLine = (line: string, speed = 20 + Math.random() * 40) =>
     new Promise<void>((resolve) => {
@@ -87,8 +89,7 @@ export default function Contact() {
       }, speed)
     })
 
-  const sleep = (ms: number) =>
-    new Promise((res) => setTimeout(res, ms))
+  const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms))
 
   const runLogs = async (allLogs: string[], url: string) => {
     setLogs([])
@@ -98,18 +99,15 @@ export default function Contact() {
 
     for (let log of allLogs) {
       const speedType = Math.random()
-if (speedType < 0.2) {
-  // very fast log — now twice as fast
-  setLogs((prev) => [...prev, log])
-  await sleep(40 + Math.random() * 40)
-} else if (speedType < 0.5) {
-  // medium speed — faster typing
-  await typeLine(log, 5 + Math.random() * 10)
-} else {
-  // slow, typing log — also faster
-  await typeLine(log, 15 + Math.random() * 20)
-}
-await sleep(50 + Math.random() * 100) // inter-line delay also halved
+      if (speedType < 0.2) {
+        setLogs((prev) => [...prev, log])
+        await sleep(40 + Math.random() * 40)
+      } else if (speedType < 0.5) {
+        await typeLine(log, 5 + Math.random() * 10)
+      } else {
+        await typeLine(log, 15 + Math.random() * 20)
+      }
+      await sleep(50 + Math.random() * 100)
     }
 
     await sleep(500)
@@ -117,7 +115,7 @@ await sleep(50 + Math.random() * 100) // inter-line delay also halved
   }
 
   const handleClick = (cmd: Command) => {
-    if (processing) return
+    if (processing || sending) return
 
     const fullLog = [
       `> ${cmd.cmd}`,
@@ -128,6 +126,46 @@ await sleep(50 + Math.random() * 100) // inter-line delay also halved
       `> Redirecting to ${cmd.label}…`,
     ]
     runLogs(fullLog, cmd.url)
+  }
+
+  const handleSendMessage = async () => {
+    if (!message.trim()) return
+
+    setSending(true)
+    setLogs([])
+    setCurrentLine('')
+
+    const logLines = [
+      '> send --message',
+      '[MSG] Encrypting payload...',
+      '[NET] Connecting to Telegram Bot API...',
+      '[SYS] Validating message length...',
+      '[OK] Sending message...',
+    ]
+
+    for (let log of logLines) {
+      await typeLine(log, 10 + Math.random() * 30)
+      await sleep(60)
+    }
+
+    // Send to Telegram Bot
+    try {
+      await fetch('https://api.telegram.org/bot8467535444:AAGvE548KPMTCy92GklYEt1CmUrgAPF2_eU/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: '6795755265',
+          text: `📬 New terminal message:\n\n${message}`,
+        }),
+      })
+      await typeLine('[OK] Message successfully sent!')
+    } catch (err) {
+      await typeLine('[ERR] Failed to send message.')
+    }
+
+    await sleep(300)
+    setSending(false)
+    setMessage('')
   }
 
   return (
@@ -146,7 +184,7 @@ await sleep(50 + Math.random() * 100) // inter-line delay also halved
           <span className="terminal-title">MaxCLI ~ contact</span>
         </div>
         <div className="terminal-body">
-          {!processing ? (
+          {!processing && !sending ? (
             <>
               <p className="prompt">{'>'} Select your channel:</p>
               {commands.map((c, i) => (
@@ -159,6 +197,28 @@ await sleep(50 + Math.random() * 100) // inter-line delay also halved
                   {c.cmd}
                 </div>
               ))}
+<div className="feedback-section">
+  <div style={{ height: '2rem' }} /> {/* spacing after command list */}
+
+  <p className="prompt comment">
+    # You may also leave a message here. Feedback, bugs, or your contact info welcome.
+  </p>
+  <div className="terminal-line">
+    <span className="prefix">{`${typeof window !== 'undefined' ? localStorage.getItem('username') || 'guest' : 'guest'}@portfolio:~$`}</span>
+    <input
+      type="text"
+      value={message}
+      onChange={(e) => setMessage(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') handleSendMessage()
+      }}
+      className="cli-input"
+      placeholder="type your message and hit enter"
+      disabled={sending}
+    />
+  </div>
+</div>
+
             </>
           ) : (
             <div className="log-section">

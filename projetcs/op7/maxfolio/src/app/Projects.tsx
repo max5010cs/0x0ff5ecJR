@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
-import { motion, useScroll, MotionValue, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import ParticlesBackground from '../components/ParticlesBackground'
 import Image from 'next/image'
 import './Projects.css'
@@ -9,7 +9,6 @@ import './Projects.css'
 const NUM_ROWS = 3
 const CARDS_PER_ROW = 5
 
-// 💡 Full Project type
 interface Project {
   image: string
   title: string
@@ -19,7 +18,6 @@ interface Project {
   techStack: string[]
 }
 
-// ✅ Real projects
 const realProjects: Project[] = [
   {
     image: '/projects/placky.png',
@@ -130,7 +128,7 @@ export default function ProjectsScroller() {
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
-  // Call useTransform a fixed number of times
+  // Call useTransform a fixed number of times for each row
   const x0 = useTransform(scrollYProgress, [0, 1], ['0%', '-25%'])
   const x1 = useTransform(scrollYProgress, [0, 1], ['-25%', '0%'])
   const x2 = useTransform(scrollYProgress, [0, 1], ['0%', '-25%'])

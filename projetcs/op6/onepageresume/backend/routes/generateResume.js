@@ -108,7 +108,7 @@ ONLY return the final structured JSON resume. Do not explain anything.
     const response = await axios.post(
       'https://openrouter.ai/api/v1/chat/completions',
       {
-        model: 'deepseek/deepseek-chat:free',
+        model: 'tngtech/deepseek-r1t2-chimera:free',    // deepseek/deepseek-chat:free
         messages: [
           { role: 'system', content: 'You generate professional resumes in strict JSON format.' },
           { role: 'user', content: prompt },

@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import RouteTransition from '@/components/RouteTransition'
 import ThemeToggle from '@/components/ThemeToggle'
+import GoogleAnalytics from '@/components/GoogleAnalytics'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           <RouteTransition>{children}</RouteTransition>
         </main>
         <Footer />
+        <GoogleAnalytics />
       </body>
     </html>
   )

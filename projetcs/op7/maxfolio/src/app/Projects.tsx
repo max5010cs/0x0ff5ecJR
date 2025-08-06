@@ -127,6 +127,11 @@ export default function ProjectsScroller() {
   const sectionRef = useRef(null)
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 768)
+  }, [])
 
   // Call useTransform a fixed number of times for each row
   const x0 = useTransform(scrollYProgress, [0, 1], ['0%', '-25%'])
@@ -160,7 +165,7 @@ export default function ProjectsScroller() {
           <div className="project-row-container" key={`container-${rowIndex}`}>
             <motion.div
               className="project-row infinite"
-              style={{ x }}
+              style={isMobile ? {} : { x }}
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 1.5, ease: 'easeInOut', delay: rowIndex * 0.15 }}
